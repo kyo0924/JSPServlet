@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<form action="filter.do" method="post">
+		제목<input type="text" name="title"><br>
+		글내용 <textarea name="content" rows="4" cols="30"></textarea><br>
+		<input type="submit" value="제출"/>
+	</form>
+	<fieldset>
+		<legend>로그인</legend>
+		<form action="login.do" method="post">
+			<label>아이디:<input type="text" name="id"/></label><br>
+			<label>비밀번호:<input type="password" name="password"/></label><br>
+			<input type="submit" value="로그인"/>&nbsp;&nbsp;
+			<input type="reset" value="취소"/>
+		</form>
+	</fieldset>
+</body>
+</html>
