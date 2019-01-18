@@ -2,12 +2,14 @@ package com.rclass.member.controller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.rclass.member.model.service.MemberService;
 import com.rclass.member.vo.Member;
 
 /**
@@ -41,7 +43,28 @@ public class LoginServlet extends HttpServlet {
 		m.setPassword(pw);
 		
 		// 비지니스 로직
-		new MemberService().selectOne(m);
+		Member result = new MemberService().selectOne(m);
+		String msg = "";
+		String loc = "/";
+		String view = "/views/common/msg.jsp";
+		
+		if (result != null) {
+			// 아이디는 존재
+			if (result.getPassword().equals(pw)) {
+				// 로그인 성공
+				msg = "로그인 성공!";
+			} else {
+				// 비밀번호 불일치
+				msg = "비밀번호가 일치하지 않습니다.";
+			}
+		} else {
+			// 아이디 없음!
+			msg = "아이디가 존재하지 않습니다.";
+		}
+		request.setAttribute("msg", msg);
+		request.setAttribute("loc", loc);
+		RequestDispatcher rd = request.getRequestDispatcher(view);
+		rd.forward(request, response);
 	}
 
 	/**
