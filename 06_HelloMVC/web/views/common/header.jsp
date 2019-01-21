@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="com.rclass.member.vo.Member" %>
+    
+<% 
+	Member loginMember = (Member) session.getAttribute("loginMember");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +16,9 @@
 <body>
 <header>
 	<h1>Hello MVC</h1>
+
 	<div class="login-container">
+	<% if(loginMember == null) { %>
 		<form id="loginFrm" action="<%=request.getContextPath() %>/login" method="post" onsubmit="return validate();">
 		<table>
 			<tr>
@@ -38,7 +45,22 @@
 		</table>
 		
 		</form>
+		<% } else { %>
+		<table id="logged-in">
+			<tr>
+				<td><%=loginMember.getUserId() %>님, 안녕하세요</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="button" value="내정보보기"/>
+					<input type="button" value="로그아웃" onclick="location.href='<%=request.getContextPath()%>/logout'"/>
+				</td>
+			</tr>
+		</table>
+		<%-- <h2><%=loginMember.getUserId() %>님 환영합니다</h2> --%>	
+		<%} %>
 	</div>
+	
 	<h2 id="test">테스트</h2>
 	<script>
 		function validate(){

@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.rclass.member.model.service.MemberService;
 import com.rclass.member.vo.Member;
@@ -53,6 +54,14 @@ public class LoginServlet extends HttpServlet {
 			if (result.getPassword().equals(pw)) {
 				// 로그인 성공
 				msg = "로그인 성공!";
+				// 로그인 성공했기 때문에 session에 값을 넣으면 됨.
+				HttpSession session = request.getSession();
+				// request.getSession(매개변수) <== true, false;
+				// true : 세션이 있으면 그 세션을 가져오고 세션이 없으면 생성해서 가져옴
+				// false : 세션이 있으면 그 세션을 가져오고 없으면 안가져옴.
+				// default : true;
+				session.setAttribute("loginMember", m);
+//				session.setMaxInactiveInterval(10);
 			} else {
 				// 비밀번호 불일치
 				msg = "비밀번호가 일치하지 않습니다.";

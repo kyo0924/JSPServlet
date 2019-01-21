@@ -1,0 +1,12 @@
+serve modules without publishing
+
+oracle 
+사용자계정 web/web - create user web identified by web
+권한부여 - grant resource, connect to web
+
+property
+클래스명.class.getResource(./파일명).getPath();
+
+property 추가 또는 수정 후
+server 우클릭 clean
+project - clean

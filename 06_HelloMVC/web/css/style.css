@@ -61,12 +61,20 @@ header div.login-container {
 }
 
 #saveId+label {
-	font-size:12px;
+	font-size: 12px;
 	font-family: '굴림';
 }
 
 header nav {
-	background-color:#5283de;
-	width:100%;
-	margin-top:40px;
+	background-color: #5283de;
+	width: 100%;
+	margin-top: 40px;
+}
+
+div.login-container table#logged-in {
+	border-spacing: 10px;
+}
+
+div.login-container table#logged-in input[type=button]{
+	border-radius: 3px;
 }
