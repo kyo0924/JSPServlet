@@ -34,6 +34,7 @@
 					<label for="saveId">아이디 저장</label>
 					<input type="button" value="회원가입" onclick="location.href='#'"/>
 				</td>
+			</tr>
 		</table>
 		
 		</form>
