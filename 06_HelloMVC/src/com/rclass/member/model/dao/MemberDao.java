@@ -76,7 +76,7 @@ public class MemberDao {
 			pstmt.setString(8, m.getAddress());
 			pstmt.setString(9, m.getHobby());
 			result = pstmt.executeUpdate();
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);

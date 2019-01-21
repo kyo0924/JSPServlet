@@ -52,11 +52,21 @@ public class MemberEnrollEndServlet extends HttpServlet {
 //		}
 		Member m = new Member(userId, password, userName, gender, age, email, phone, address, hobby, null);
 		int result = new MemberService().insertMember(m);
+		
+		String msg = "";
+		String loc = "";
+		String view = "/views/common/msg.jsp";
+		
 		if (result > 0) {
-			System.out.println("회원가입에 성공하였습니다");
+			msg = "회원가입에 성공하였습니다";
+			loc = "";
 		} else {
-			System.out.println("회원가입 실패");
+			msg = "회원가입 실패";
+			loc = "/views/member/memberEnroll.jsp";
 		}
+		request.setAttribute("msg", msg);
+		request.setAttribute("loc", loc);
+		request.getRequestDispatcher(view).forward(request, response);
 	}
 
 	/**
