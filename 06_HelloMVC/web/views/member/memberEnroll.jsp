@@ -5,6 +5,34 @@
 <script>
 	$(function(){
 		
+		/* $("#password_2").blur(function() {
+			
+			var pw1 = $("#password_").val();
+			var pw2 = $("#password_2").val();
+			if (pw1.trim() != pw2.trim()) {
+				
+				alert("비밀번호가 일치하지 않습니다!");
+				$("#password_").focus();
+				$("#password_").val('');
+				$("#password_2").val("");
+				
+			}
+		}); */
+		
+		$("#password_2").blur(function() {
+			
+			var pw1 = $("#password_");
+			var pw2 = $("#password_2");
+			if (pw1.val().trim() != pw2.val().trim()) {
+				
+				alert("비밀번호가 일치하지 않습니다!Version2");
+				pw1.focus();
+				pw1.val('');
+				pw2.val("");
+				
+			}
+		});
+		
 		
 	});
 	function fn_enroll_validate(){
@@ -14,6 +42,7 @@
 			$("#userId_").focus();
 			return false;
 		}
+		
 		return true;
 	}
 </script>
@@ -73,6 +102,12 @@
 					<td>
 						<input type="radio" name="gender" id="gender0" value="M" checked/><label for="gender0">남</label>
 						<input type="radio" name="gender" id="gender1" value="F" checked/><label for="gender1">여</label>
+					</td>
+				</tr>
+				<tr>
+					<th>주소</th>
+					<td>
+						<input type="text" name="address" id="address"/>
 					</td>
 				</tr>
 				<tr>
