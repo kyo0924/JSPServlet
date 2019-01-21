@@ -31,7 +31,7 @@ public class SessionCheckListener implements HttpSessionListener, HttpSessionAtt
      */
     public void sessionCreated(HttpSessionEvent arg0)  { 
          // TODO Auto-generated method stub
-    	activeSession++;
+//    	activeSession++;
     	System.out.println("세션 생성 현재 : " + activeSession);
     }
 
@@ -40,20 +40,22 @@ public class SessionCheckListener implements HttpSessionListener, HttpSessionAtt
      */
     public void sessionDestroyed(HttpSessionEvent arg0)  { 
          // TODO Auto-generated method stub
-    	activeSession--;
+//    	activeSession--;
     	System.out.println("세션 소멸 현재 : " + activeSession);
     }
 
 	@Override
 	public void attributeAdded(HttpSessionBindingEvent arg0) {
 		// TODO Auto-generated method stub
-		
+		activeSession++;
+		System.out.println("세션 등록 현재 : " + activeSession);
 	}
 
 	@Override
 	public void attributeRemoved(HttpSessionBindingEvent arg0) {
 		// TODO Auto-generated method stub
-		
+		activeSession--;
+		System.out.println("세션 삭제 현재 : " + activeSession);
 	}
 
 	@Override

@@ -4,6 +4,20 @@
     
 <% 
 	Member loginMember = (Member) session.getAttribute("loginMember");
+	// saveId 가져오기
+	// Cookie는 request의 getCookies()로 가져올 수 있음. 반환형이 배열
+	Cookie[] cookies = request.getCookies();
+	String saveId = null;
+	if (cookies != null) {
+		for (Cookie c : cookies) {
+			String key = c.getName(); 
+			String value = c.getValue(); 
+			if (key.equals("saveId")) {
+				saveId = value;
+				break;
+			}
+		}
+	}
 %>
 <!DOCTYPE html>
 <html>
@@ -23,7 +37,7 @@
 		<table>
 			<tr>
 				<td>
-				<input type="text" name="userId" placeholder="아이디"/>
+				<input type="text" name="userId" placeholder="아이디" value="<%=saveId != null ? saveId : "" %>"/>
 				</td>
 				<td></td>
 			</tr>
@@ -37,9 +51,9 @@
 			</tr>
 			<tr>
 				<td colspan="2">
-					<input type="checkbox" name="saveId" id="saveId"/>
+					<input type="checkbox" name="saveId" id="saveId" <%=saveId!= null ? "checked":"" %>/>
 					<label for="saveId">아이디 저장</label>
-					<input type="button" value="회원가입" onclick="location.href='#'"/>
+					<input type="button" value="회원가입" onclick="location.href='<%=request.getContextPath()%>/memberEnroll'"/>
 				</td>
 			</tr>
 		</table>
