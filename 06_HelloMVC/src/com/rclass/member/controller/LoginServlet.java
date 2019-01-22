@@ -17,7 +17,7 @@ import com.rclass.member.vo.Member;
 /**
  * Servlet implementation class LoginServlet
  */
-@WebServlet("/login")
+@WebServlet(name="LoginServlet", urlPatterns="/login")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -61,7 +61,7 @@ public class LoginServlet extends HttpServlet {
 				// true : 세션이 있으면 그 세션을 가져오고 세션이 없으면 생성해서 가져옴
 				// false : 세션이 있으면 그 세션을 가져오고 없으면 안가져옴.
 				// default : true;
-				session.setAttribute("loginMember", m);
+				session.setAttribute("loginMember", result);
 //				session.setMaxInactiveInterval(10);
 				
 				// 아이디 저장 로직 구현 Cookie 이용

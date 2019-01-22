@@ -14,7 +14,7 @@ import com.rclass.member.vo.Member;
 /**
  * Servlet implementation class MemberEnrollEndServlet
  */
-@WebServlet("/memberEnrollEnd")
+@WebServlet(name="MemberEnrollEndServlet", urlPatterns = "/memberEnrollEnd")
 public class MemberEnrollEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
