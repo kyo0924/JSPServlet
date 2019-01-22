@@ -12,7 +12,7 @@
 <section id="enroll-container">
 	<h2>회원정보 수정</h2>
 	<form name="memberUpdateFrm"
-		action="<%=request.getContextPath()%>/memberUpdateEnd" method="post"
+		action="<%=request.getContextPath()%>/memberUpdate" method="post"
 		onsubmit="return fn_enroll_validate();">
 		<table>
 				<tr>
