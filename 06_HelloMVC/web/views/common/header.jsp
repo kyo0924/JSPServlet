@@ -12,6 +12,7 @@
 <header>
 	<h1>Hello MVC</h1>
 	<div class="login-container">
+		<!-- The onsubmit event occurs when a form is submitted. -->
 		<form id="loginFrm" action="<%=request.getContextPath() %>/login" method="post" onsubmit="return validate();">
 		<table>
 			<tr>
