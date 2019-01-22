@@ -70,7 +70,7 @@
 </script>
 	<section id="enroll-container">
 		<h2>회원가입정보 입력</h2>
-		<form action="<%=request.getContextPath()%>/memberEnrollEnd" method="post" onsubmit="return fn_enroll_validate();">
+		<form name="memberEnrollFrm" action="<%=request.getContextPath()%>/memberEnrollEnd" method="post" onsubmit="return fn_enroll_validate();">
 			<table>
 				<tr>
 					<th>
@@ -93,7 +93,7 @@
 				<tr>
 					<th>패스워드확인</th>
 					<td>
-						<input type="password" name="password" id="password_2" required/>
+						<input type="password" id="password_2" required/>
 					</td>
 				</tr>
 				<tr>
