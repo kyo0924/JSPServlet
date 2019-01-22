@@ -32,7 +32,13 @@
 	</div>
 	<script>
 		function fn_validate() {
-			
+			var userId = document.getElementById('userId').value;
+			if (!userId || userId.trim().length < 4) {
+				alert("아이디를 4글자 이상 입력해주세요");
+				return false;
+			} else {
+				return true;
+			}
 		}
 	</script>
 </body>
