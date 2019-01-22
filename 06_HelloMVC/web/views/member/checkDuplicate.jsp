@@ -14,13 +14,26 @@
 	span#duplicated{color: red; font-weight: bold;}
 </style>
 </head>
+<script src="<%=request.getContextPath() %>/js/jquery-3.3.1.min.js"></script>
 <body>
 	<div id="checkid-container">
 		<% if (isAble) { %>
 		[<span><%=userId %></span>]는 사용가능합니다.
+		<br><br>
+		<button type="button" onclick="self.close();">닫기</button>
 		<% } else { %>
 		[<span id="duplicated"><%=userId %></span>]는 사용 불가능합니다.
+		<form action="<%=request.getContextPath() %>/checkIdDuplicate" method="post" onsubmit="return fn_validate();">
+		
+			<input type="text" name="userId" placeholder="아이디입력"/>
+			<input type="submit" value="재검색"/>
+		</form>
 		<%} %>
 	</div>
+	<script>
+		function fn_validate() {
+			
+		}
+	</script>
 </body>
 </html>
