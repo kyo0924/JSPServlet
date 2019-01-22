@@ -45,6 +45,24 @@
 		
 		return true;
 	}
+	
+	function fn_checkIdDuplicate() {
+		
+		var userId = $("#userId_").val().trim();
+		if (!userId || userId.length < 4) {
+			alert("아이디를 4글자 이상 입력하세요!");
+			return;
+		}
+		// 새 창을 열어서 아이디값을 비교하는 로직을 구성!
+		var url = "<%=request.getContextPath()%>/checkIdDuplicate";
+		var title = "checkIdDuplicate";
+		var option = "left=500px, top=100px, width=300px, height=200px, menuba=no, status=no, scrollbars=yes";
+		var popup = window.open("",title, option);
+		// form은 name으로 접근 가능/ form 태그안에 이름이 userId인것(input태그)의 value에 값을 설정
+		checkIdDuplicateFrm.userId.value = userId;
+		checkIdDuplicateFrm.target = title;
+	}
+	
 </script>
 	<section id="enroll-container">
 		<h2>회원가입정보 입력</h2>
@@ -57,6 +75,7 @@
 					<td>
 						<input type="text" name="userId" id="userId_"
 						required placeholder = "4글자 이상 입력"/>
+						<input type="button" value="중복검사" onclick="fn_checkIdDuplicate()"/>
 					</td>
 				</tr>
 				<tr>
@@ -124,6 +143,9 @@
 			</table>
 			<input type="submit" value="가입"/>
 			<input type="reset" value="취소"/>
+		</form>
+		<form name="checkIdDuplicateFrm" method="post">
+			<input type="hidden" name="userId"/>
 		</form>
 	</section>
 <%@ include file="/views/common/footer.jsp" %>
