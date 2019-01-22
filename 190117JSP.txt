@@ -1,0 +1,4 @@
+page: 설정 정보
+include : 공용으로 쓰는 클래스
+
+D:\servlet&jsp\servletWork\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\work\Catalina\localhost\05_jspBasic\org\apache\jsp (서블릿으로 바뀐 jsp코드)
