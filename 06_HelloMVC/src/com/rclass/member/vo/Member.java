@@ -111,6 +111,13 @@ public class Member implements Serializable{
 	public void setEnrollDate(Date enrollDate) {
 		this.enrollDate = enrollDate;
 	}
+
+	@Override
+	public String toString() {
+		return "Member [userId=" + userId + ", password=" + password + ", userName=" + userName + ", gender=" + gender
+				+ ", age=" + age + ", email=" + email + ", phone=" + phone + ", address=" + address + ", hobby=" + hobby
+				+ ", enrollDate=" + enrollDate + "]";
+	}
 	
 	
 }

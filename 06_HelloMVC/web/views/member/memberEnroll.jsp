@@ -61,6 +61,10 @@
 		// form은 name으로 접근 가능/ form 태그안에 이름이 userId인것(input태그)의 value에 값을 설정
 		checkIdDuplicateFrm.userId.value = userId;
 		checkIdDuplicateFrm.target = title;
+		checkIdDuplicateFrm.action = url;
+		checkIdDuplicateFrm.method = "post";
+		checkIdDuplicateFrm.submit();
+		
 	}
 	
 </script>
