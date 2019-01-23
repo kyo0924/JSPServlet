@@ -90,7 +90,7 @@
 					</td>
 				</tr>
 			</table>
-		<input type="submit" value="수정" /> <input type="reset" value="탈퇴" />
+		<input type="submit" value="수정" /><input type="button" value="탈퇴" onclick="location.href='<%=request.getContextPath()%>/delete'"/>
 	</form>
 </section>
 <%@ include file="/views/common/footer.jsp"%>

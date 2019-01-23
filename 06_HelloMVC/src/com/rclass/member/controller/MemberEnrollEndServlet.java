@@ -14,6 +14,7 @@ import com.rclass.member.vo.Member;
 /**
  * Servlet implementation class MemberEnrollEndServlet
  */
+
 @WebServlet(name="MemberEnrollEndServlet", urlPatterns = "/memberEnrollEnd")
 public class MemberEnrollEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -43,7 +44,11 @@ public class MemberEnrollEndServlet extends HttpServlet {
 		String address = request.getParameter("address");
 //		String hobby = request.getParameter("hobby");
 		String[] hobbys = request.getParameterValues("hobby");
-		String hobby = String.join(",", hobbys);
+		String hobby = "";
+		if (hobbys != null) {
+			hobby = String.join(",", hobbys);
+		}
+		
 //		if (hobbys != null) {
 //			for (String hobbyName : hobbys) {
 //				hobby += hobbyName + " ";

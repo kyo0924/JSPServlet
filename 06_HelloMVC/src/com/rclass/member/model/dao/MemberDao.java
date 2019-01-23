@@ -83,4 +83,32 @@ public class MemberDao {
 		}
 		return result;
 	}
+	
+	public int updateMember(Connection conn, Member m) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateMember");
+		int result = 0;
+//		updateMember=UPDATE MEMBER SET PASSWORD = ?, USERNAME = ?, GENDER = ?, AGE = ?, EMAIL = ?, PHONE = ?, ADDRESS = ?, HOBBY = ? WHERE USERID = ?
+		try {
+			pstmt = conn.prepareStatement(sql);
+			System.out.println(m.getPassword());
+			System.out.println(m.getUserName());
+			System.out.println(m.getUserId());
+			pstmt.setString(1, m.getPassword());
+			pstmt.setString(2, m.getUserName());
+			pstmt.setString(3, m.getGender());
+			pstmt.setInt(4, m.getAge());
+			pstmt.setString(5, m.getEmail());
+			pstmt.setString(6, m.getPhone());
+			pstmt.setString(7, m.getAddress());
+			pstmt.setString(8, m.getHobby());
+			pstmt.setString(9, m.getUserId());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }

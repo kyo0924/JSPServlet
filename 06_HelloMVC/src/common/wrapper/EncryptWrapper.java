@@ -34,7 +34,7 @@ public class EncryptWrapper extends HttpServletRequestWrapper {
 		// 암호화 객체 생성 : MessageDigest
 		MessageDigest md = null;
 		//  MessageDigest.getInstance("SHA-512"); 알고리즘 
-		// 자바 UTF-8 : String -> 2bye
+		// 자바 UTF-8 : String -> 2byte
 		try {
 			md = MessageDigest.getInstance("SHA-512");
 		} catch(NoSuchAlgorithmException e) {

@@ -37,7 +37,9 @@
 		<table>
 			<tr>
 				<td>
-				<input type="text" name="userId" placeholder="아이디" value="<%=saveId != null ? saveId : "" %>"/>
+				<%-- <input type="text" name="userId" placeholder="아이디" value="<%=saveId != null ? saveId : "" %>"/> --%>
+				<input type="text" name="userId" placeholder="아이디" value="<%if(saveId != null){%><%=saveId%><%}/* else{out.write("");} */%>"/>
+				
 				</td>
 				<td></td>
 			</tr>
