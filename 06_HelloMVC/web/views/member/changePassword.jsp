@@ -67,7 +67,9 @@
 			var pw = $("#password");
 			var pwNew = $("#password_new");
 			var pwCk = $("#password_ck");
-			
+			if (pwNew.val().trim() != pwCk.val().trim()) {
+				alert("새 비밀번호가 잘못 입력되었습니다");
+			}
 		}
 	</script>
 </body>
