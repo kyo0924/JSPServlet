@@ -68,7 +68,12 @@
 			</tr>
 			<tr>
 				<td>
-					<input type="button" value="내정보보기" onclick="location.href='<%=request.getContextPath() %>/views/member/mypage.jsp'"/>
+					<!-- 
+					서버에 전달할 데이터가 많을때, 중요한 데이터들이 있을 때 Form형식 
+					간단하게는 location.href, a태그 등 사용
+					-->
+					<%-- <input type="button" value="내정보보기" onclick="location.href='<%=request.getContextPath() %>/views/member/mypage.jsp'"/> --%>
+					<input type="button" value="내정보보기" onclick="location.href='<%=request.getContextPath() %>/updateMember?userId=<%=loginMember.getUserId()%>'"/>
 					<input type="button" value="로그아웃" onclick="location.href='<%=request.getContextPath()%>/logout'"/>
 				</td>
 			</tr>

@@ -7,55 +7,68 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.rclass.member.model.service.MemberService;
 import com.rclass.member.vo.Member;
 
 /**
- * Servlet implementation class MemberUpdateServlet
+ * Servlet implementation class MemberUpdateEndServlet
  */
-
-@WebServlet("/updateMember")
-//@WebServlet(name="MemberUpdateServlet", urlPatterns="/memberUpdate")
-public class MemberUpdateServlet extends HttpServlet {
+//@WebServlet("/memberUpdateEnd")
+@WebServlet(name="MemberUpdateEndServlet", urlPatterns="/memberUpdateEnd")
+public class MemberUpdateEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberUpdateServlet() {
+    public MemberUpdateEndServlet() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 로그인한 회원의 정보를 가져와서 그정보를 출력해주는 view화면을 선택
-		// 서버에 값을 주는 방법 1. form, 2. 쿼리스트링 - key : value (', " 사용하지 않음)
+		// TODO Auto-generated method stub
 		String userId = request.getParameter("userId");
+		String password = request.getParameter("password");
+		String userName = request.getParameter("userName");
+		int age = Integer.parseInt(request.getParameter("age"));
+		String email = request.getParameter("email");
+		String phone = request.getParameter("phone");
+		String gender = request.getParameter("gender");
+		String address = request.getParameter("address");
+		String hobby = "";
+		String[] hobbys = request.getParameterValues("hobby");
+		if (hobbys != null) {
+			hobby = String.join(",", hobbys);
+		}
 		Member m = new Member();
 		m.setUserId(userId);
-		// 비지니스 로직
-		Member result = new MemberService().selectOne(m);
-		
-		//view 선택
+		m.setPassword(password);
+		m.setUserName(userName);
+		m.setAge(age);
+		m.setEmail(email);
+		m.setPhone(phone);
+		m.setGender(gender);
+		m.setAddress(address);
+		m.setHobby(hobby);
+		int result = new MemberService().updateMember(m);
 		String msg = "";
 		String loc = "";
-		String view = "";
-		if (result == null) {
+		String view = "/views/common/msg.jsp";
+		if (result > 0) {
+			msg = "업데이트에 성공하였습니다";
+			view = "";
 			
-			msg = "해당회원이 존재하지 않습니다.";
-			view = "/views/common/msg.jsp";
+		} else {
+			msg = "업데이트 실패";
 			request.setAttribute("msg", msg);
 			request.setAttribute("loc", loc);
-		} else {
-			view = "/views/member/MemberView.jsp";
-			request.setAttribute("member", result);
 		}
 		request.getRequestDispatcher(view).forward(request, response);
-		
 	}
 
 	/**

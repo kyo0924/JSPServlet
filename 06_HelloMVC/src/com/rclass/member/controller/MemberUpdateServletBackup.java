@@ -3,37 +3,29 @@ package com.rclass.member.controller;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.rclass.member.model.service.MemberService;
 import com.rclass.member.vo.Member;
 
 /**
- * Servlet implementation class MemberEnrollEndServlet
+ * Servlet implementation class MemberUpdateServlet
  */
-
-/*@WebFilter(
-		servletNames = {
-				"LoginServlet",
-				"MemberEnrollEndServlet",
-				"MemberUpdateServlet"
-		})
-		// servletName으로 매핑
-		*/
-@WebServlet(name="MemberEnrollEndServlet", urlPatterns = "/memberEnrollEnd")
-public class MemberEnrollEndServlet extends HttpServlet {
+//@WebServlet(name="LoginServlet", urlPatterns="/login")
+//@WebServlet("/memberUpdate")
+//@WebServlet(name="MemberUpdateServlet", urlPatterns="/memberUpdate")
+public class MemberUpdateServletBackup extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberEnrollEndServlet() {
+    public MemberUpdateServletBackup() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -41,9 +33,12 @@ public class MemberEnrollEndServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-//		new Member(userId, password, userName, gender, age, email, phone, address, hobby, enrollDate)
 		request.setCharacterEncoding("UTF-8");
-		String userId = request.getParameter("userId");
+//		String userId = request.getParameter("userId");
+		HttpSession session = request.getSession();
+		Member loginMember = (Member) session.getAttribute("loginMember");
+		String userId = loginMember.getUserId();
+		System.out.println("UpdateServlet userId : " + userId);
 		String password = request.getParameter("password");
 		String userName  = request.getParameter("userName");
 		String gender = request.getParameter("gender");
@@ -51,36 +46,20 @@ public class MemberEnrollEndServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String phone = request.getParameter("phone");
 		String address = request.getParameter("address");
-//		String hobby = request.getParameter("hobby");
 		String[] hobbys = request.getParameterValues("hobby");
 		String hobby = "";
 		if (hobbys != null) {
 			hobby = String.join(",", hobbys);
 		}
-		
-//		if (hobbys != null) {
-//			for (String hobbyName : hobbys) {
-//				hobby += hobbyName + " ";
-//				System.out.println(hobby);
-//			}
-//		}
 		Member m = new Member(userId, password, userName, gender, age, email, phone, address, hobby, null);
-		int result = new MemberService().insertMember(m);
-		
-		String msg = "";
-		String loc = "";
-		String view = "/views/common/msg.jsp";
-		
+		int result = new MemberService().updateMember(m);
 		if (result > 0) {
-			msg = "회원가입에 성공하였습니다";
-			loc = "";
-		} else {
-			msg = "회원가입 실패";
-			loc = "/views/member/memberEnroll.jsp";
+			System.out.println("업데이트 성공 : " + result);
+			session.removeAttribute("loginMember");
+			session.setAttribute("loginMember", loginMember);
 		}
-		request.setAttribute("msg", msg);
-		request.setAttribute("loc", loc);
-		request.getRequestDispatcher(view).forward(request, response);
+		else
+			System.out.println("업데이트 실패 : " + result);
 	}
 
 	/**

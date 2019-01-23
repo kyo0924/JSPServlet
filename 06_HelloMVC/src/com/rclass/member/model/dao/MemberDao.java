@@ -111,4 +111,11 @@ public class MemberDao {
 		}
 		return result;
 	}
+	
+	public int deleteMember(Connection conn, String userId) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = "";
+		return result;
+	}
 }
