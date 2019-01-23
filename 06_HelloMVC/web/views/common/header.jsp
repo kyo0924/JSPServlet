@@ -82,7 +82,6 @@
 		<%} %>
 	</div>
 	
-	<h2 id="test">테스트</h2>
 	<script>
 		function validate(){
 			var idVal=$('[name=userId]').val();

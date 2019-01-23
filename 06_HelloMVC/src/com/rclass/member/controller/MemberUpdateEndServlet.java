@@ -60,14 +60,16 @@ public class MemberUpdateEndServlet extends HttpServlet {
 		String loc = "";
 		String view = "/views/common/msg.jsp";
 		if (result > 0) {
-			msg = "업데이트에 성공하였습니다";
+			msg = "회원정보수정 완료";
 			view = "";
 			
 		} else {
-			msg = "업데이트 실패";
-			request.setAttribute("msg", msg);
-			request.setAttribute("loc", loc);
+			msg = "회원정보수정 실패";
+			// Member m을 이용하여 참조하는 코드가 있는데 받아오는 값이 없어서 nullpointererror
+			loc = "/updateMember?userId=" + userId;
 		}
+		request.setAttribute("msg", msg);
+		request.setAttribute("loc", loc);
 		request.getRequestDispatcher(view).forward(request, response);
 	}
 

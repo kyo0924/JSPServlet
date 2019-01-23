@@ -44,10 +44,10 @@
 		<table>
 			<tr>
 				<th>아이디</th>
-				<td><input type="text" name="userId" id="userId_" readonly value="<%=m.getUserId()%>"/>
+				<td><input type="text" name="userId" id="userId_" value="<%=m.getUserId()%>"/>
 				</td>
 			</tr>
-			<tr>
+			<!-- <tr>
 				<th>패스워드</th>
 				<td><input type="password" name="password" id="password_"
 					required /></td>
@@ -56,7 +56,7 @@
 				<th>패스워드확인</th>
 				<td><input type="password" id="password_2" required /></td>
 			</tr>
-			<tr>
+			<tr> -->
 				<th>이름</th>
 				<td><input type="text" name="userName" id="userName" required value="<%=m.getUserName()%>"/>
 				</td>
@@ -101,9 +101,42 @@
 					id="hobby5" value="펜싱" <%=checkHobby[5] %>/><label for="hobby5">펜싱</label></td>
 			</tr>
 		</table>
-		<input type="button" value="정보수정" onclick="fn_updateMember();"/> <input type="button" value="탈퇴" />
+		<input type="button" value="정보수정" onclick="fn_updateMember();"/> 
+		<input type="button" onclick="fn_changePw();" value="비밀번호변경"/>
+		<input type="button" value="탈퇴" onclick="fn_deleteMember()"/>
+		<!-- fn_deleteMember() 
+		
+		-->
+	</form>
+	<form name="pwChangeFrm" method="post">
+		<input type="hidden" name="userId"/>
+	</form>
+	
+	<form name="deleteFrm"
+		action="<%=request.getContextPath()%>/deleteMember" method="post">
+		<input type="hidden" name="userId" />
 	</form>
 	<script>
+		// 새창 열고 비밀번호 수정페이지 요청(서블릿 연결) 빈화면
+		function fn_changePw() {
+			/* var option = "left=500px, top=100px, width=300px, height=200px, menuba=no, status=no, scrollbars=yes"; */
+			var option = "left=100px, top = 100px, width=500px, height=500px, scrollbars=yes";
+			var url = "<%=request.getContextPath()%>/changePassword?userId=<%=m.getUserId()%>";
+			var title = "changePassword";
+			var popup = window.open(url,title, option);
+			
+		}
+	
+		function fn_deleteMember(){
+			var flag = confirm("삭제하시겠습니까?");
+			if (flag) {
+				
+				<%-- location.href="<%=request.getContextPath()%>/deleteMember?userId=<%=m.getUserId()%>"; --%>
+				deleteFrm.userId.value = "<%=m.getUserId()%>";
+				deleteFrm.submit();
+			}
+		}
+	
 		function fn_updateMember() {
 			memberFrm.submit();
 		}

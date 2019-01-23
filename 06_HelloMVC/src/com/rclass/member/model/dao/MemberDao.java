@@ -91,18 +91,16 @@ public class MemberDao {
 //		updateMember=UPDATE MEMBER SET PASSWORD = ?, USERNAME = ?, GENDER = ?, AGE = ?, EMAIL = ?, PHONE = ?, ADDRESS = ?, HOBBY = ? WHERE USERID = ?
 		try {
 			pstmt = conn.prepareStatement(sql);
-			System.out.println(m.getPassword());
-			System.out.println(m.getUserName());
-			System.out.println(m.getUserId());
-			pstmt.setString(1, m.getPassword());
-			pstmt.setString(2, m.getUserName());
-			pstmt.setString(3, m.getGender());
-			pstmt.setInt(4, m.getAge());
-			pstmt.setString(5, m.getEmail());
-			pstmt.setString(6, m.getPhone());
-			pstmt.setString(7, m.getAddress());
-			pstmt.setString(8, m.getHobby());
-			pstmt.setString(9, m.getUserId());
+			
+//			pstmt.setString(1, m.getPassword());
+			pstmt.setString(1, m.getUserName());
+			pstmt.setString(2, m.getGender());
+			pstmt.setInt(3, m.getAge());
+			pstmt.setString(4, m.getEmail());
+			pstmt.setString(5, m.getPhone());
+			pstmt.setString(6, m.getAddress());
+			pstmt.setString(7, m.getHobby());
+			pstmt.setString(8, m.getUserId());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -115,7 +113,18 @@ public class MemberDao {
 	public int deleteMember(Connection conn, String userId) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String sql = "";
+		String sql = prop.getProperty("deleteMember");
+		System.out.println("try전 삭제할 아이디 : " + userId);
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			System.out.println("삭제할 아이디 : " + userId);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
 		return result;
 	}
 }
