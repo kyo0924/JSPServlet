@@ -25,6 +25,45 @@ public class AdminDao {
 			e.printStackTrace();
 		}
 	}
+	
+	public List<Member> selectSearchMember(Connection conn, String type, String key) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "";
+		List<Member> list = new ArrayList<>();
+		switch (type) {
+		
+		case "userId": sql=prop.getProperty("searchUserId"); break;
+		case "userName": sql = prop.getProperty("searchUserName"); break;
+		case "gender": sql = prop.getProperty("searchGender"); break;
+		}
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%" + key + "%");
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Member m = new Member();
+				m.setUserId(rs.getString("userid"));
+				m.setUserName(rs.getString("username"));
+				m.setGender(rs.getString("gender"));
+				m.setAge(rs.getInt("age"));
+				m.setEmail(rs.getString("email"));
+				m.setPhone(rs.getString("phone"));
+				m.setAddress(rs.getString("address"));
+				m.setHobby(rs.getString("hobby"));
+				m.setEnrollDate(rs.getDate("enrolldate"));
+				list.add(m);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
 
 	public List<Member> selectMemberList(Connection conn) {
 		PreparedStatement pstmt = null;

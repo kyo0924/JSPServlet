@@ -76,8 +76,8 @@ div#search-userId{
 		</div>
 		<div id="search-userName">
 			<form action="<%=request.getContextPath()%>/admin/memberFinder">
-				<input type="hidden" name="searchType" value="userName" /> <input
-					type="text" name="searchKeyword" size="25"
+				<input type="hidden" name="searchType" value="userName" /> 
+				<input type="text" name="searchKeyword" size="25"
 					placeholder="검색할회원명을 입력하세요" />
 				<button type="submit">검색</button>
 			</form>

@@ -18,4 +18,11 @@ public class AdminService {
 		close(conn);
 		return list;
 	}
+	
+	public List<Member> selectSearchMember(String type, String key) {
+		Connection conn = getConnection();
+		List<Member> list = dao.selectSearchMember(conn, type, key);
+		close(conn);
+		return list;
+	}
 }
