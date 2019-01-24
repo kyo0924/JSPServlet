@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.rclass.admin.model.service.AdminService;
 import com.rclass.member.vo.Member;
@@ -31,6 +32,13 @@ public class AdminMemberListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		Member loginMember = (Member) request.getSession(false).getAttribute("loginMember");
+		if (loginMember == null || !"admin".equals(loginMember.getUserId())) {
+			request.setAttribute("msg", "잘못된 경로로 이동하셨습니다.");
+			request.setAttribute("loc", "/");
+			request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
+		}
 		// 모든 회원의 정보를 출력해주는 서블릿
 		
 		List<Member> list = new AdminService().selectMemberList();
