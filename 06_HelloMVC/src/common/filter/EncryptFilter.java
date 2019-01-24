@@ -22,6 +22,7 @@ import common.wrapper.EncryptWrapper;
 				"MemberEnrollEndServlet",
 				/*"MemberUpdateServlet",
 				"MemberUpdateEndServlet"*/
+				"ChangePasswordEndServlet"
 		})
 public class EncryptFilter implements Filter {
 

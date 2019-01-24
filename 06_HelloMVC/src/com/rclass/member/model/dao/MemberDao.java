@@ -110,6 +110,24 @@ public class MemberDao {
 		return result;
 	}
 	
+	public int updatePassword(Connection conn, Member m) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("updatePassword");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, m.getPassword());
+			pstmt.setString(2, m.getUserId());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
 	public int deleteMember(Connection conn, String userId) {
 		int result = 0;
 		PreparedStatement pstmt = null;

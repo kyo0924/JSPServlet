@@ -59,6 +59,7 @@
 				</td>
 			</tr>
 		</table>
+		<!-- 사용자는 필요없지만 개발자에게 필요한 값 hidden으로 전달 -->
 		<input type="hidden" name="userId" value="<%=userId %>"/>
 	</form>
 	</div>
@@ -68,10 +69,11 @@
 			var pwNew = $("#password_new");
 			var pwCk = $("#password_ck");
 			if (pwNew.val().trim() != pwCk.val().trim()) {
-				alert("변경할 비밀번호와 확인값이 일치하지않습니다");
-			} else {
-				
-			}
+				alert("입력한 패스워드가 일치하지 않습니다");
+				pwNew.select();
+				return false;
+			} 
+			return true;
 		}
 	</script>
 </body>
