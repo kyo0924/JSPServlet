@@ -46,6 +46,33 @@ public class AdminDao {
 		return result;
 	}
 	
+	public int selectMemberCount(Connection conn, String type, String key) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int result = 0;
+		String sql = "";
+		switch (type) {
+	
+		case "userId": sql=prop.getProperty("selectUserIdCount"); break;
+		case "userName": sql = prop.getProperty("selectUserNameCount"); break;
+		case "gender": sql = prop.getProperty("selectGenderCount"); break;
+		}
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, key);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				result = rs.getInt("cnt");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
+	
 	public List<Member> selectSearchMember(Connection conn, String type, String key, int cPage, int numPerPage) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;

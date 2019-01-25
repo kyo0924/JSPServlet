@@ -18,6 +18,13 @@ public class AdminService {
 		close(conn);
 		return result;
 	}
+	
+	public int selectMemberCount(String type, String key) {
+		Connection conn = getConnection();
+		int result = dao.selectMemberCount(conn, type, key);
+		close(conn);
+		return result;
+	}
 
 	/*public List<Member> selectMemberList() {
 		Connection conn = getConnection();

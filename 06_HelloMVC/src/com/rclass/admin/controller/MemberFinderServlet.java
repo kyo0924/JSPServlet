@@ -49,7 +49,8 @@ public class MemberFinderServlet extends HttpServlet {
 		}
 		
 		// 총 페이지 갯수 구하기
-		int totalContent = new AdminService().selectMemberCount();
+//		int totalContent = new AdminService().selectMemberCount();
+		int totalContent = new AdminService().selectMemberCount(type, key);
 		
 		int totalPage = (int) Math.ceil((double)totalContent / numPerPage);
 		
@@ -70,7 +71,7 @@ public class MemberFinderServlet extends HttpServlet {
 		if (pageNo == 1) {
 			pageBar += "<span>[이전]</span>";
 		} else {
-			pageBar +="<a href='" + request.getContextPath() + "/admin/memberList?cPage=" + (pageNo - 1) + "&numPerPage=" + numPerPage + "'>[이전]</a>";
+			pageBar +="<a href='" + request.getContextPath() + "/admin/memberFinder?cPage=" + (pageNo - 1) + "&searchType=" + type + "&searchKeyword=" + key +"&numPerPage=" + numPerPage + "'>[이전]</a>";
 		}
 		// 페이지연결 숫자 소스작성
 		while(!(pageNo > pageEnd || pageNo > totalPage)) {
@@ -78,7 +79,7 @@ public class MemberFinderServlet extends HttpServlet {
 				pageBar += "<span class='cPage'>" + pageNo + "</span>";
 			} else {
 				
-				pageBar += "  <a href='" + request.getContextPath() + "/admin/memberList?cPage=" + pageNo + "&numPerPage=" +numPerPage +"'>" + pageNo + "</a>";
+				pageBar += "  <a href='" + request.getContextPath() + "/admin/memberFinder?cPage=" + pageNo + "&searchType=" + type + "&searchKeyword=" + key + "&numPerPage=" +numPerPage +"'>" + pageNo + "</a>";
 			}
 			pageNo++;
 		}
@@ -86,7 +87,7 @@ public class MemberFinderServlet extends HttpServlet {
 		if (pageNo > totalPage) {
 			pageBar += "<span>[다음]</span>";
 		} else {
-			pageBar += "<a href='" + request.getContextPath() + "/admin/memberList?cPage=" + pageNo + "&numPerPage=" + numPerPage + "'>[다음]</a>";
+			pageBar += "<a href='" + request.getContextPath() + "/admin/memberFinder?cPage=" + pageNo + "&searchType=" + type + "&searchKeyword=" + key + "&numPerPage=" + numPerPage + "'>[다음]</a>";
 		}
 		
 		// view를 선택해서 자료를 전송!
