@@ -50,16 +50,11 @@ public class MemberFinderServlet extends HttpServlet {
 		
 		// 총 페이지 갯수 구하기
 		int totalContent = new AdminService().selectMemberCount(type, key);
-		System.out.println(totalContent);
 		
 		int totalPage = (int) Math.ceil((double)totalContent / numPerPage);
 		
 		// 보여줄 자료 가져오기
 		List<Member> list = new AdminService().selectSearchMember(type, key, cPage, numPerPage);
-		
-		for (Member m : list) {
-			System.out.println(m);
-		}
 		
 		// pageBar 구성
 		int pageBarSize = 5; // bar에 출력할 페이지수
