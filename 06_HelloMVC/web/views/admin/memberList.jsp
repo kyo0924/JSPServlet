@@ -5,9 +5,6 @@
 <%
 	List<Member> list = (List) request.getAttribute("list");
 	String searchType = (String) request.getAttribute("searchType");
-	/* if (searchType == null) {
-		searchType = "userId";
-	} */
 	String searchKeyword = (String) request.getAttribute("searchKeyword");
 	String pageBar = (String) request.getAttribute("pageBar");
 	int cPage = (int) request.getAttribute("cPage");

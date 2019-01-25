@@ -79,10 +79,10 @@ public class AdminMemberListServlet extends HttpServlet {
 		// 페이지연결 숫자 소스작성
 		while(!(pageNo > pageEnd || pageNo > totalPage)) {
 			if (cPage == pageNo) {
-				pageBar += "<span class='cPage'>" + pageNo + "</span>";
+				pageBar += "<span class='cPage'> " + pageNo + " </span>";
 			} else {
 				
-				pageBar += "  <a href='" + request.getContextPath() + "/admin/memberList?cPage=" + pageNo + "&numPerPage=" +numPerPage +"'>" + pageNo + "</a>";
+				pageBar += " <a href='" + request.getContextPath() + "/admin/memberList?cPage=" + pageNo + "&numPerPage=" +numPerPage +"'>" + pageNo + "</a> ";
 			}
 			pageNo++;
 		}

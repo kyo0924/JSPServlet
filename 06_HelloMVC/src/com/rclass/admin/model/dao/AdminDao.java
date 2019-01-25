@@ -59,7 +59,7 @@ public class AdminDao {
 		}
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, key);
+			pstmt.setString(1, "%" + key + "%");
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				result = rs.getInt("cnt");
@@ -80,9 +80,9 @@ public class AdminDao {
 		List<Member> list = new ArrayList<>();
 		switch (type) {
 		
-		case "userId": sql=prop.getProperty("searchUserIdPage"); break;
-		case "userName": sql = prop.getProperty("searchUserNamePage"); break;
-		case "gender": sql = prop.getProperty("searchGenderPage"); break;
+		case "userId": sql=prop.getProperty("searchUserIdList"); break;
+		case "userName": sql = prop.getProperty("searchUserNameList"); break;
+		case "gender": sql = prop.getProperty("searchGenderList"); break;
 		}
 		
 		try {
