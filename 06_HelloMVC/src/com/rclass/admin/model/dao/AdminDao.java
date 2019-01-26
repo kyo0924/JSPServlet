@@ -26,6 +26,94 @@ public class AdminDao {
 		}
 	}
 	
+	public int selectMemberCount(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int result = 0;
+		String sql = prop.getProperty("selectMemberCount");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				result = rs.getInt("cnt");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int selectMemberCount(Connection conn, String type, String key) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int result = 0;
+		String sql = "";
+		switch (type) {
+	
+		case "userId": sql=prop.getProperty("selectUserIdCount"); break;
+		case "userName": sql = prop.getProperty("selectUserNameCount"); break;
+		case "gender": sql = prop.getProperty("selectGenderCount"); break;
+		}
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%" + key + "%");
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				result = rs.getInt("cnt");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public List<Member> selectSearchMember(Connection conn, String type, String key, int cPage, int numPerPage) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "";
+		List<Member> list = new ArrayList<>();
+		switch (type) {
+		
+		case "userId": sql=prop.getProperty("searchUserIdList"); break;
+		case "userName": sql = prop.getProperty("searchUserNameList"); break;
+		case "gender": sql = prop.getProperty("searchGenderList"); break;
+		}
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%" + key + "%");
+			pstmt.setInt(2, (cPage - 1) * numPerPage + 1);
+			pstmt.setInt(3, cPage * numPerPage);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Member m = new Member();
+				m.setUserId(rs.getString("userid"));
+				m.setUserName(rs.getString("username"));
+				m.setGender(rs.getString("gender"));
+				m.setAge(rs.getInt("age"));
+				m.setEmail(rs.getString("email"));
+				m.setPhone(rs.getString("phone"));
+				m.setAddress(rs.getString("address"));
+				m.setHobby(rs.getString("hobby"));
+				m.setEnrollDate(rs.getDate("enrolldate"));
+				list.add(m);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
+	
 	public List<Member> selectSearchMember(Connection conn, String type, String key) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -65,15 +153,17 @@ public class AdminDao {
 		return list;
 	}
 
-	public List<Member> selectMemberList(Connection conn) {
+	public List<Member> selectMemberList(Connection conn, int cPage, int numPerPage) {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("selectMemberList");
 //		String sql = "SELECT * FROM MEMBER ORDER BY ENROLLDATE DESC";
 		ResultSet rs = null;
 		List<Member> list = new ArrayList<Member>();
-		System.out.println("selectMemberList before----------");
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, (cPage - 1) * numPerPage + 1);
+			System.out.println();
+			pstmt.setInt(2, cPage * numPerPage);
 			rs = pstmt.executeQuery();
 			System.out.println("selectMemberList");
 			while (rs.next()) {

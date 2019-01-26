@@ -4,6 +4,11 @@
 <%@ include file="/views/common/header.jsp"%>
 <%
 	List<Member> list = (List) request.getAttribute("list");
+	String searchType = (String) request.getAttribute("searchType");
+	String searchKeyword = (String) request.getAttribute("searchKeyword");
+	String pageBar = (String) request.getAttribute("pageBar");
+	int cPage = (int) request.getAttribute("cPage");
+	int numPerPage = (int) request.getAttribute("numPerPage");
 %>
 <style>
 
@@ -21,6 +26,13 @@ section#memberList-container table#tbl-member th, table#tbl-member td {
 	border: 1px solid gray;
 	padding: 10px;
 }
+
+section#memberList-container div#neck-container{padding:0px; height: 50px; background-color:rgba(0, 188, 212, 0.3);}
+
+section#memberList-container div#search-container {margin:0 0 10px 0; padding:3px; float:left;}
+
+section#memberList-container div#numPerPage-container{float:right;}
+section#memberList-container form#numPerPageFrm{display:inline;}
 
 td a {
 	text-decoration: none;
@@ -44,6 +56,7 @@ div#search-userId{
 </style>
 <script>
 	$(function(){
+		
 		var sid = $("#search-userId");
 		var sname= $("#search-userName");
 		var sgender= $("#search-gender");
@@ -55,39 +68,67 @@ div#search-userId{
 			
 			$("#search-" + $(this).val()).css("display","inline-block");
 		})
+		
+		$("#searchType").trigger("change");
+		
+		$("#numPerPage").on('change', function(){
+			numPerPageFrm.submit();
+		})
 	})
 </script>
 <section id="memberList-container">
 	<h2>회원관리</h2>
-	<div id="search-container">
-		검색타입: <select id="searchType">
-			<option value="userId">아이디</option>
-			<option value="userName">회원명</option>
-			<option value="gender">성별</option>
-		</select>
-
-		<div id="search-userId">
-			<form action="<%=request.getContextPath()%>/admin/memberFinder">
-				<input type="hidden" name="searchType" value="userId" /> <input
-					type="text" name="searchKeyword" size="25"
-					placeholder="검색할아이디를 입력하세요" />
-				<button type="submit">검색</button>
-			</form>
+	<div id="neck-container">
+		<div id="search-container">
+			검색타입: <select id="searchType">
+				<option value="userId" <%="userId".equals(searchType)?"selected":""%>>아이디</option>
+				<option value="userName" <%="userName".equals(searchType)?"selected":""%>>회원명</option>
+				<option value="gender" <%="gender".equals(searchType)?"selected":"" %>>성별</option>
+			</select>
+	
+			<div id="search-userId">
+				<form action="<%=request.getContextPath()%>/admin/memberFinder">
+					<input type="hidden" name="searchType" value="userId"/> 
+					<input type="hidden" name="cPage" value="<%=cPage%>"/>
+					<input type="hidden" name="numPerPage" value="<%=numPerPage%>"/>
+					<input
+						type="text" name="searchKeyword" size="25"
+						placeholder="검색할아이디를 입력하세요" value='<%="userId".equals(searchType)?searchKeyword:""%>' />
+					<button type="submit">검색</button>
+				</form>
+			</div>
+			<div id="search-userName">
+				<form action="<%=request.getContextPath()%>/admin/memberFinder">
+					<input type="hidden" name="searchType" value="userName"/>
+					<input type="hidden" name="cPage" value="<%=cPage%>"/>
+					<input type="hidden" name="numPerPage" value="<%=numPerPage%>"/> 
+					<input type="text" name="searchKeyword" size="25"
+						placeholder="검색할회원명을 입력하세요" value='<%="userName".equals(searchType)?searchKeyword:""%>' />
+					<button type="submit">검색</button>
+				</form>
+			</div>
+			<div id="search-gender">
+				<form action="<%=request.getContextPath()%>/admin/memberFinder">
+					<input type="hidden" name="cPage" value="<%=cPage%>"/>
+					<input type="hidden" name="numPerPage" value="<%=numPerPage%>"/>
+					<input type="hidden" name="searchType" value="gender" /> <input
+						type="radio" name="searchKeyword" value="M" <%="gender".equals(searchType)&&"M".equals(searchKeyword)? "checked":""%>>남 <input
+						type="radio" name="searchKeyword" value="F" <%="gender".equals(searchType)&&"F".equals(searchKeyword)? "checked":""%>>여
+					<button type="submit">검색</button>
+				</form>
+			</div>
 		</div>
-		<div id="search-userName">
-			<form action="<%=request.getContextPath()%>/admin/memberFinder">
-				<input type="hidden" name="searchType" value="userName" /> 
-				<input type="text" name="searchKeyword" size="25"
-					placeholder="검색할회원명을 입력하세요" />
-				<button type="submit">검색</button>
-			</form>
-		</div>
-		<div id="search-gender">
-			<form action="<%=request.getContextPath()%>/admin/memberFinder">
-				<input type="hidden" name="searchType" value="gender" /> <input
-					type="radio" name="searchKeyword" value="M" checked>남 <input
-					type="radio" name="searchKeyword" value="F">여
-				<button type="submit">검색</button>
+		
+		<div id="numPerPage-container">
+			페이지당 회원수 :
+			<form name="numPerPageFrm" id="numPerPageFrm" action="<%=request.getContextPath()%>/admin/memberList">
+				<input type="hidden" name="cPage" value="<%=cPage%>"/>
+				
+				<select name="numPerPage" id="numPerPage">
+					<option value="3" <%=numPerPage==3? "selected":"" %>>3</option>
+					<option value="5" <%=numPerPage==5? "selected":"" %>>5</option>
+					<option value="10" <%=numPerPage==10? "selected":"" %>>10</option>
+				</select>
 			</form>
 		</div>
 	</div>
@@ -120,7 +161,7 @@ div#search-userId{
 			<td><%=m.getEnrollDate()%></td>
 		</tr>
 		<%
-			}
+				}
 			} else {
 		%>
 		<tr>
@@ -130,5 +171,9 @@ div#search-userId{
 			}
 		%>
 	</table>
+	<div id="pageBar">
+		<%=pageBar %>
+	</div>
+	
 </section>
 <%@include file="/views/common/footer.jsp"%>
