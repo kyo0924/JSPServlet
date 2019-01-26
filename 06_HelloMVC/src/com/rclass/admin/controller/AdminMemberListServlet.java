@@ -53,7 +53,7 @@ public class AdminMemberListServlet extends HttpServlet {
 			numPerPage = 5;
 		}
 		
-		// 총 페이지 갯수 구하기
+		// 총 데이터 갯수 구하기
 		int totalContent = new AdminService().selectMemberCount();
 		
 		int totalPage = (int) Math.ceil((double)totalContent / numPerPage);
