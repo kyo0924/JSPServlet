@@ -20,6 +20,13 @@ public class NoticeService {
 		return result;
 	}
 
+	public ArrayList<Notice> selectNoticeList(int cPage, int numPerPage) {
+		Connection conn = getConnection();
+		ArrayList<Notice> list = dao.selectNoticeList(conn, cPage, numPerPage);
+		close(conn);
+		return list;
+	}
+	
 	public ArrayList<Notice> selectNoticeList() {
 		Connection conn = getConnection();
 		ArrayList<Notice> list = dao.selectNoticeList(conn);

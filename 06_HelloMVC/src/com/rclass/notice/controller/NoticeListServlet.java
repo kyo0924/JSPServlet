@@ -36,6 +36,7 @@ public class NoticeListServlet extends HttpServlet {
 		// Servlet -> Service(Connection) -> Dao
 		
 		
+		
 		int cPage, numPerPage;
 		try {
 			cPage = Integer.parseInt(request.getParameter("cPage"));
@@ -49,12 +50,16 @@ public class NoticeListServlet extends HttpServlet {
 			numPerPage = 5;
 		}
 		
-		int totalContent = new NoticeService().selectNoticeCount();
-		int totalPage = totalContent / numPerPage;
+//		int totalContent = new NoticeService().selectNoticeCount();
+//		int totalPage = totalContent / numPerPage;
 		
 		String pageBar = "";
 		
 		ArrayList<Notice> list = new NoticeService().selectNoticeList(cPage, numPerPage);
+		
+		request.setAttribute("list", list);
+		// 응답view선택! 데이터 응답view에 전송
+		request.getRequestDispatcher("/views/notice/noticeList.jsp").forward(request, response);
 		
 		
 	}
