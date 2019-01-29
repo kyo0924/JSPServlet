@@ -32,8 +32,8 @@ public class NoticeDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-			while (rs.next()) {
-				
+			if (rs.next()) {
+				result = rs.getInt(1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

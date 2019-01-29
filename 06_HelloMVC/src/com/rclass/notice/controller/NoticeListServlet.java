@@ -50,12 +50,15 @@ public class NoticeListServlet extends HttpServlet {
 			numPerPage = 5;
 		}
 		
-//		int totalContent = new NoticeService().selectNoticeCount();
-//		int totalPage = totalContent / numPerPage;
+		int totalContent = new NoticeService().selectNoticeCount();
+		System.out.println("totalContent : " + totalContent);
+		int totalPage = totalContent / numPerPage;
 		
 		String pageBar = "";
 		
 		ArrayList<Notice> list = new NoticeService().selectNoticeList(cPage, numPerPage);
+		int pageBarSize = 5;
+		int pageNo = ((cPage - 1) / pageBarSize) * pageBarSize + 1;
 		
 		request.setAttribute("list", list);
 		// 응답view선택! 데이터 응답view에 전송
