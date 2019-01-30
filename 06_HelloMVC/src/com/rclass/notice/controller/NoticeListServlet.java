@@ -1,7 +1,7 @@
 package com.rclass.notice.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -50,28 +50,35 @@ public class NoticeListServlet extends HttpServlet {
 			numPerPage = 5;
 		}
 		
-		int totalContent = new NoticeService().selectNoticeCount();
-		System.out.println("totalContent : " + totalContent);
-		int totalPage = (int) Math.ceil((double)totalContent / numPerPage);
+		// 전체 자료수 호출
+		int totalContent = new NoticeService().selectCount();
+		int totalPage = (int) Math.ceil((double) totalContent / numPerPage);
+		List<Notice> list = new NoticeService().selectList(cPage, numPerPage);
+		System.out.println(cPage + " : " + numPerPage);
+		for (Notice n : list) {
+			System.out.println(n);
+		}
 		
+		//PAGE 구현 pageBar
 		String pageBar = "";
-		
-		ArrayList<Notice> list = new NoticeService().selectNoticeList(cPage, numPerPage);
 		int pageBarSize = 5;
 		int pageNo = ((cPage - 1) / pageBarSize) * pageBarSize + 1;
 		int pageEnd = pageNo + pageBarSize - 1;
 		
+		//pageBar 채우기
 		if (pageNo == 1) {
 			pageBar += "<span>[이전]</span>";
 		} else {
 			pageBar += "<a href='" + request.getContextPath() + "/notice/noticeList?cPage=" + (pageNo - 1) + "&numPerPage=" + numPerPage + "'>[이전]</a>";
 		}
 		
-		while (!(pageNo > pageEnd || pageNo > totalPage)) {
-			if (pageNo == cPage) {
+		// 번호구현
+		while(!(pageNo > pageEnd || pageNo > totalPage)) {
+			
+			if (cPage == pageNo) {
 				pageBar += "<span>" + pageNo + "</span>";
 			} else {
-				pageBar += "<a href='" + request.getContextPath() + "/notice/noticeList?cPage=" + pageNo + "&numPerPage=" + numPerPage + "'>" + pageNo + "</a>";
+				pageBar += "<a href='" + request.getContextPath() + "/notice/noticeList?cPage=" + pageNo +"'>" + pageNo + "</a>";
 			}
 			pageNo++;
 		}
@@ -79,10 +86,8 @@ public class NoticeListServlet extends HttpServlet {
 		if (pageNo > totalPage) {
 			pageBar += "<span>[다음]</span>";
 		} else {
-			pageBar += "<a href='" + request.getContextPath() + "/notice/noticeList?cPage=" + pageNo + "&numPerPage=" + numPerPage + "'>[다음]</a>";
-			System.out.println("pageEnd : " + pageBar);
+			pageBar += "<a href='" + request.getContextPath() + "/notice/noticeList?cPage=" + pageNo + "'>[다음]</a>"; 
 		}
-		
 		
 		request.setAttribute("list", list);
 		request.setAttribute("pageBar", pageBar);
