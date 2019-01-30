@@ -1,7 +1,7 @@
 package com.rclass.notice.controller;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,14 +15,14 @@ import com.rclass.notice.model.vo.Notice;
 /**
  * Servlet implementation class NoticeListServlet
  */
-@WebServlet("/notice/noticeList")
-public class NoticeListServlet extends HttpServlet {
+//@WebServlet("/notice/noticeList")
+public class NoticeListServletBackup extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeListServlet() {
+    public NoticeListServletBackup() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -50,31 +50,28 @@ public class NoticeListServlet extends HttpServlet {
 			numPerPage = 5;
 		}
 		
-		// 전체 자료수 호출
-		int totalContent = new NoticeService().selectCount();
-		int totalPage = (int) Math.ceil((double) totalContent / numPerPage);
-		List<Notice> list = new NoticeService().selectList(cPage, numPerPage);
+		int totalContent = new NoticeService().selectNoticeCount();
+		System.out.println("totalContent : " + totalContent);
+		int totalPage = (int) Math.ceil((double)totalContent / numPerPage);
 		
-		//PAGE 구현 pageBar
 		String pageBar = "";
+		
+		ArrayList<Notice> list = new NoticeService().selectNoticeList(cPage, numPerPage);
 		int pageBarSize = 5;
 		int pageNo = ((cPage - 1) / pageBarSize) * pageBarSize + 1;
 		int pageEnd = pageNo + pageBarSize - 1;
 		
-		//pageBar 채우기
 		if (pageNo == 1) {
 			pageBar += "<span>[이전]</span>";
 		} else {
 			pageBar += "<a href='" + request.getContextPath() + "/notice/noticeList?cPage=" + (pageNo - 1) + "&numPerPage=" + numPerPage + "'>[이전]</a>";
 		}
 		
-		// 번호구현
-		while(!(pageNo > pageEnd || pageNo > totalPage)) {
-			
-			if (cPage == pageNo) {
+		while (!(pageNo > pageEnd || pageNo > totalPage)) {
+			if (pageNo == cPage) {
 				pageBar += "<span>" + pageNo + "</span>";
 			} else {
-				pageBar += "a href='" + request.getContextPath() + "/notice/noticelist?cPage=" + pageNo +"'>" + pageNo + "</a>";
+				pageBar += "<a href='" + request.getContextPath() + "/notice/noticeList?cPage=" + pageNo + "&numPerPage=" + numPerPage + "'>" + pageNo + "</a>";
 			}
 			pageNo++;
 		}
@@ -82,8 +79,10 @@ public class NoticeListServlet extends HttpServlet {
 		if (pageNo > totalPage) {
 			pageBar += "<span>[다음]</span>";
 		} else {
-			pageBar += "<a href='" + request.getContextPath() + "/notice/noticeList?cPage=" + pageNo + "'>[다음]</a>"; 
+			pageBar += "<a href='" + request.getContextPath() + "/notice/noticeList?cPage=" + pageNo + "&numPerPage=" + numPerPage + "'>[다음]</a>";
+			System.out.println("pageEnd : " + pageBar);
 		}
+		
 		
 		request.setAttribute("list", list);
 		request.setAttribute("pageBar", pageBar);

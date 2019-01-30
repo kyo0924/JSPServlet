@@ -24,6 +24,26 @@ public class NoticeDao {
 		}
 	}
 	
+	public int selectCount(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int result = 0;
+		String sql = prop.getProperty("selectCount");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				result = rs.getInt("cnt");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
+	
 	public int selectNoticeCount(Connection conn) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -44,6 +64,35 @@ public class NoticeDao {
 		return result;
 	}
 	
+	public Notice selectOne(Connection conn, int no) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Notice n = null;
+		String sql = prop.getProperty("selectOne");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			rs = pstmt.executeQuery();
+			System.out.println("test");
+			if (rs.next()) {
+				n = new Notice();
+				n.setNoticeNo(rs.getInt("notice_no"));
+				n.setNoticeTitle(rs.getString("notice_title"));
+				n.setNoticeWriter(rs.getString("notice_writer"));
+				n.setNoticeContent(rs.getString("notice_content"));
+				n.setNoticeDate(rs.getDate("notice_date"));
+				n.setFilePath(rs.getString("filepath"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return n;
+	}
+	
 	public ArrayList<Notice> selectNoticeList(Connection conn) {
 		
 		// DB 정보를 가져오는 객체
@@ -56,6 +105,41 @@ public class NoticeDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Notice n = new Notice();
+//				new Notice(noticeNo, noticeTitle, noticeWriter, noticeContent, noticeDate, filePath)
+				n.setNoticeNo(rs.getInt("notice_no"));
+				n.setNoticeTitle(rs.getString("notice_title"));
+				n.setNoticeWriter(rs.getString("notice_writer"));
+				n.setNoticeContent(rs.getString("notice_content"));
+				n.setNoticeDate(rs.getDate("notice_date"));
+				n.setFilePath(rs.getString("filepath"));
+				list.add(n);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	public ArrayList<Notice> selectList(Connection conn, int cPage, int numPerPage) {
+		
+		// DB 정보를 가져오는 객체
+		// 1. Connection, PreparedStatement, ResultSet(select) / int (insert, update, delete)
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<Notice> list = new ArrayList<Notice>();
+		String sql = prop.getProperty("selectNoticeList");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, (cPage - 1) * numPerPage + 1);
+			pstmt.setInt(2, cPage * numPerPage);
+			rs = pstmt.executeQuery();
+		
 			while(rs.next()) {
 				Notice n = new Notice();
 //				new Notice(noticeNo, noticeTitle, noticeWriter, noticeContent, noticeDate, filePath)
