@@ -74,7 +74,7 @@ public class NoticeListServlet extends HttpServlet {
 			if (cPage == pageNo) {
 				pageBar += "<span>" + pageNo + "</span>";
 			} else {
-				pageBar += "a href='" + request.getContextPath() + "/notice/noticelist?cPage=" + pageNo +"'>" + pageNo + "</a>";
+				pageBar += "<a href='" + request.getContextPath() + "/notice/noticeList?cPage=" + pageNo +"'>" + pageNo + "</a>";
 			}
 			pageNo++;
 		}

@@ -1,7 +1,10 @@
 package com.rclass.notice.model.service;
 
 import static common.JDBCTemplate.close;
+
 import static common.JDBCTemplate.getConnection;
+import static common.JDBCTemplate.commit;
+import static common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -54,5 +57,18 @@ public class NoticeService {
 		ArrayList<Notice> list = dao.selectNoticeList(conn);
 		close(conn);
 		return list;
+	}
+	
+	public int insertNotice(Notice n) {
+		Connection conn = getConnection();
+		int result = dao.insertNotice(conn, n);
+		if (result > 0) {
+			commit(conn);
+			result = dao.selectSeq(conn);
+		}
+		else
+			rollback(conn);
+		close(conn);
+		return result;
 	}
 }

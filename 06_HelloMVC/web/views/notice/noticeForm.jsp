@@ -11,7 +11,10 @@
 </style>
 	<section id="notice-container">
 		<h2>공지사항 등록</h2>
-		<form action="<%=request.getContextPath()%>/notice/noticeFormEnd" method="post">
+		<!-- 
+			multipart
+		 -->
+		<form action="<%=request.getContextPath()%>/notice/noticeFormEnd" method="post" enctype="multipart/form-data">
 			<table id="tbl-notice">
 				<tr>
 					<th>제목</th>
