@@ -2,6 +2,7 @@
     pageEncoding="UTF-8" import="java.util.*, com.rclass.notice.model.vo.*"%>
 <%
 	List<Notice> list = (List) request.getAttribute("list");
+	String pageBar = (String) request.getAttribute("pageBar");
 %> 
     
 <%@ include file= "/views/common/header.jsp" %>
@@ -36,5 +37,6 @@ table#tbl-notice th, table#tbl-notice td {border:1px solid; padding: 5px 0; text
 		</tr>
 		<%} %>
 	</table>
+	<%=pageBar %>
 </section>
 <%@include file= "/views/common/footer.jsp"%>

@@ -52,15 +52,42 @@ public class NoticeListServlet extends HttpServlet {
 		
 		int totalContent = new NoticeService().selectNoticeCount();
 		System.out.println("totalContent : " + totalContent);
-		int totalPage = totalContent / numPerPage;
+		int totalPage = (int) Math.ceil((double)totalContent / numPerPage);
 		
 		String pageBar = "";
 		
 		ArrayList<Notice> list = new NoticeService().selectNoticeList(cPage, numPerPage);
 		int pageBarSize = 5;
 		int pageNo = ((cPage - 1) / pageBarSize) * pageBarSize + 1;
+		int pageEnd = pageNo + pageBarSize - 1;
+		
+		if (pageNo == 1) {
+			pageBar += "<span>[이전]</span>";
+		} else {
+			pageBar += "<a href='" + request.getContextPath() + "/notice/noticeList?cPage=" + (pageNo - 1) + "&numPerPage=" + numPerPage + "'>[이전]</a>";
+		}
+		
+		while (!(pageNo > pageEnd || pageNo > totalPage)) {
+			if (pageNo == cPage) {
+				pageBar += "<span>" + pageNo + "</span>";
+			} else {
+				pageBar += "<a href='" + request.getContextPath() + "/notice/noticeList?cPage=" + pageNo + "&numPerPage=" + numPerPage + "'>" + pageNo + "</a>";
+			}
+			pageNo++;
+		}
+		
+		if (pageNo > totalPage) {
+			pageBar += "<span>[다음]</span>";
+		} else {
+			pageBar += "<a href='" + request.getContextPath() + "/notice/noticeList?cPage=" + pageNo + "&numPerPage=" + numPerPage + "'>[다음]</a>";
+			System.out.println("pageEnd : " + pageBar);
+		}
+		
 		
 		request.setAttribute("list", list);
+		request.setAttribute("pageBar", pageBar);
+		request.setAttribute("cPage", cPage);
+		request.setAttribute("numPerPage", numPerPage);
 		// 응답view선택! 데이터 응답view에 전송
 		request.getRequestDispatcher("/views/notice/noticeList.jsp").forward(request, response);
 		
