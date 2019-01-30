@@ -50,7 +50,7 @@ public class LoginServlet extends HttpServlet {
 			request.setAttribute("msg", msg);
 			request.setAttribute("loc", loc);
 		}
-		RequestDispatcher rd = request.getRequestDispatcher(view);
+		RequestDispatcher rd = request.getRequestDispatcher("/error.jsp").e;
 		rd.forward(request, response);
 	}
 
