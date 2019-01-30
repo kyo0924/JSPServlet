@@ -39,12 +39,69 @@ public class AdminMemberListServlet extends HttpServlet {
 			request.setAttribute("loc", "/");
 			request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
 		}
-		// 모든 회원의 정보를 출력해주는 서블릿
+		// 페이징 처리 시작!
+		int cPage;
+		try {
+			cPage = Integer.parseInt(request.getParameter("cPage"));
+		} catch (NumberFormatException e) {
+			cPage = 1;
+		}
+		int numPerPage;
+		try {
+			numPerPage = Integer.parseInt(request.getParameter("numPerPage"));
+		} catch (NumberFormatException e) {
+			numPerPage = 5;
+		}
 		
-		List<Member> list = new AdminService().selectMemberList();
+		// 총 데이터 갯수 구하기
+		int totalContent = new AdminService().selectMemberCount();
+		
+		int totalPage = (int) Math.ceil((double)totalContent / numPerPage);
+		
+		// 보여줄 자료 가져오기
+		List<Member> list = new AdminService().selectMemberList(cPage, numPerPage);
+		
+		// pageBar 구성
+		int pageBarSize = 5; // bar에 출력할 페이지수
+		String pageBar=""; //bar를 만든 소스코드(html)
+		int pageNo = ((cPage - 1) / pageBarSize) * pageBarSize + 1;
+		// 시작지점 1, 6, 11, 16
+		// 기준 : cPage 1~5 -> pageNo=1 / cPage 6~10 -> pageNo =6
+		int pageEnd = pageNo + pageBarSize - 1;
+		
+		// 페이지에 출력해줄 소스코드 작성
+		// [이전] 코드작성
+		if (pageNo == 1) {
+			pageBar += "<span>[이전]</span>";
+		} else {
+			pageBar +="<a href='" + request.getContextPath() + "/admin/memberList?cPage=" + (pageNo - 1) + "&numPerPage=" + numPerPage + "'>[이전]</a>";
+		}
+		// 페이지연결 숫자 소스작성
+		while(!(pageNo > pageEnd || pageNo > totalPage)) {
+			if (cPage == pageNo) {
+				pageBar += "<span class='cPage'> " + pageNo + " </span>";
+			} else {
+				
+				pageBar += " <a href='" + request.getContextPath() + "/admin/memberList?cPage=" + pageNo + "&numPerPage=" +numPerPage +"'>" + pageNo + "</a> ";
+			}
+			pageNo++;
+		}
+		// [다음] 코드 작성
+		if (pageNo > totalPage) {
+			pageBar += "<span>[다음]</span>";
+		} else {
+			pageBar += "<a href='" + request.getContextPath() + "/admin/memberList?cPage=" + pageNo + "&numPerPage=" + numPerPage + "'>[다음]</a>";
+		}
+		
+		
+		// 모든 회원의 정보를 출력해주는 서블릿
+//		List<Member> list = new AdminService().selectMemberList();
 		
 		// view를 선택해서 자료를 전송!
 		request.setAttribute("list", list);
+		request.setAttribute("pageBar", pageBar);
+		request.setAttribute("cPage", cPage);
+		request.setAttribute("numPerPage", numPerPage);
 		request.getRequestDispatcher("/views/admin/memberList.jsp").forward(request, response);
 	}
 

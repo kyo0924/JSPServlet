@@ -4,4 +4,5 @@
 	<section id="content">
 		<h2 align="center" style="margin-top:200px">안녕하세요 MVC입니다.</h2>
 	</section>
+	<button onclick="location.href='<%=request.getContextPath()%>/sample'">회원관리</button>
 <%@ include file="/views/common/footer.jsp" %>
