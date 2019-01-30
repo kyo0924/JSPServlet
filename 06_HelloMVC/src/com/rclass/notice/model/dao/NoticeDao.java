@@ -133,7 +133,7 @@ public class NoticeDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<Notice> list = new ArrayList<Notice>();
-		String sql = prop.getProperty("selectNoticeList");
+		String sql = prop.getProperty("selectList");
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, (cPage - 1) * numPerPage + 1);
@@ -150,6 +150,7 @@ public class NoticeDao {
 				n.setNoticeDate(rs.getDate("notice_date"));
 				n.setFilePath(rs.getString("filepath"));
 				list.add(n);
+				System.out.println(n);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

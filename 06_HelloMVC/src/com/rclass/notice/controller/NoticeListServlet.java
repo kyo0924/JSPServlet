@@ -54,6 +54,10 @@ public class NoticeListServlet extends HttpServlet {
 		int totalContent = new NoticeService().selectCount();
 		int totalPage = (int) Math.ceil((double) totalContent / numPerPage);
 		List<Notice> list = new NoticeService().selectList(cPage, numPerPage);
+		System.out.println(cPage + " : " + numPerPage);
+		for (Notice n : list) {
+			System.out.println(n);
+		}
 		
 		//PAGE 구현 pageBar
 		String pageBar = "";
