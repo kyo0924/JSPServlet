@@ -59,11 +59,16 @@ public class NoticeUpdateEndServlet extends HttpServlet {
 		n.setNoticeTitle(title);
 		n.setNoticeWriter(writer);
 		n.setNoticeContent(content);
+		// getRealPath()로 서버의 어플리케이션 위치를 가져오기 때문에 fileName만 저장하면됨
+//		n.setFilePath(filePath);
 		
 		/* 
 		 status만 바꾸고 안보이기, 실제로 삭제
 		 * */
 		String fileName = mr.getFilesystemName("up_file");
+		// 3_연산자1.pdf
+//		System.out.println(fileName);
+		// getFile() : File 객체 가져옴
 		File f = mr.getFile("up_file");
 		if (f != null && f.length() > 0) {
 			
