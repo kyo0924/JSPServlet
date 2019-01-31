@@ -26,9 +26,18 @@
 			<tr>
 				<th>첨부파일</th>
 				<td><%if(n.getFilePath()!=null) { %>
-					<img alt="첨부파일"
-					src="<%=request.getContextPath()%>/images/file.png"
-					width="16px"/>
+					<a href="javascript:fn_fileDown('<%=n.getFilePath()%>')">
+						<%-- <a href="<%=request.getContextPath()%>/notice/noticeFileDownload?fname=<%=n.getFilePath()%>"></a> --%>
+						<img alt="첨부파일"
+						src="<%=request.getContextPath()%>/images/file.png"
+						width="16px"/>
+					</a>
+					<script>
+						function fn_fileDown(fname) {
+							fname = encodeURIComponent(fname);
+							location.href="<%=request.getContextPath()%>/notice/noticeFileDownload?fname=" + fname;
+						}
+					</script>
 					<%} %>
 				</td>
 			</tr>

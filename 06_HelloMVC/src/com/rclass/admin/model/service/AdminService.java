@@ -29,7 +29,7 @@ public class AdminService {
 	/*public List<Member> selectMemberList() {
 		Connection conn = getConnection();
 		List<Member> list = dao.selectMemberList(conn);
-		close(conn);
+		close(conn)
 		return list;
 	}*/
 	
