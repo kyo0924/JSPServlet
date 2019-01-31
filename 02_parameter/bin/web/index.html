@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<fieldset>
+		<legend>get방식 로그인</legend>
+		<form action="loginGet.do" method="get">
+			<label>id <input type="text" name="id" id="id"></label><br>
+			<label>password <input type="password" name="pw" id="pw" /></label> <br>
+			<br> <input type="submit" value="로그인" /> <input type="reset"
+				value="취소" />
+		</form>
+
+	</fieldset>
+	<fieldset>
+		<legend>post방식 로그인</legend>
+		<form action="loginPost.do" method="post">
+			<label>id <input type="text" name="id" id="id"></label><br>
+			<label>password <input type="password" name="pw" id="pw" /></label> <br>
+			<br> <input type="submit" value="로그인" /> <input type="reset"
+				value="취소" />
+		</form>
+	</fieldset>
+	<h2><a href="views/testPerson1.html">1. 개인취향테스트(basic)</a></h2>
+	<h2><a href="views/testPerson2.html">2. 개인취향테스트(RequestDispatcher)</a></h2>
+	<h2><a href="views/testPerson3.html">3. 개인취향테스트(sendRedirect)</a></h2>
+	<h2><a href="views/sharedata.html">4. 데이터 저장 확인</a></h2>
+</body>
+</html>
