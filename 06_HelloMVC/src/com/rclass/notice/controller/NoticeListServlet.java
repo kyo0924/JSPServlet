@@ -35,8 +35,6 @@ public class NoticeListServlet extends HttpServlet {
 		//DB에서 데이터 불러옴!
 		// Servlet -> Service(Connection) -> Dao
 		
-		
-		
 		int cPage, numPerPage;
 		try {
 			cPage = Integer.parseInt(request.getParameter("cPage"));
