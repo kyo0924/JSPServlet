@@ -37,6 +37,7 @@ public class LoginServlet extends HttpServlet {
 		m.setUserId(userId);
 		m.setPassword(password);
 		
+		Member result = new MemberService().selectOne(m);
 	}
 
 	/**
