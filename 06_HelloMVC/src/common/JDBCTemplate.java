@@ -76,7 +76,7 @@ public class JDBCTemplate {
 	
 	public static void close(ResultSet rs) {
 		try {
-			if (!rs.isClosed() || rs != null) {
+			if (!rs.isClosed() && rs != null) {
 				rs.close();
 			}
 		} catch (SQLException e) {
