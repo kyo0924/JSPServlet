@@ -52,5 +52,11 @@
 				</td>
 			</tr>
 		</table>
+		
+		<script>
+			function fn_updateNotice() {
+				location.href = "<%=request.getContextPath()%>/notice/noticeUpdate?no=<%=n.getNoticeNo()%>";
+			}
+		</script>
 	</section>
 <%@include file= "/views/common/footer.jsp"%>

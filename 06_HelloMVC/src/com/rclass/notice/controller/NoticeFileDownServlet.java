@@ -74,7 +74,8 @@ public class NoticeFileDownServlet extends HttpServlet {
 		// setContentType(text/html)
 		// octec-stream : 특정한 파일 의미
 		response.setContentType("application/octet-stream");
-		response.setHeader("Content-Disposition", "attachment;filename=" + resFileName);
+//		response.setHeader("Content-Disposition", "attachment;filename=" + resFileName);
+		response.setHeader("Content-Disposition", "inline;filename=" + resFileName);
 		
 		// 5. 파일 보내주기!
 		int read = -1;
