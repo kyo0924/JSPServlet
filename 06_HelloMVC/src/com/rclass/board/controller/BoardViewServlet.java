@@ -1,26 +1,23 @@
-package com.rclass.member.controller;
+package com.rclass.board.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.rclass.member.model.vo.Member;
-
 /**
- * Servlet implementation class LoginServlet
+ * Servlet implementation class BoardViewServlet
  */
-@WebServlet("/login")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/board/boardView")
+public class BoardViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginServlet() {
+    public BoardViewServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,17 +27,8 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String userId = request.getParameter("userId");
-		String password = request.getParameter("password");
-		
-		Member m = new Member();
-		m.setUserId(userId);
-		m.setPassword(password);
-<<<<<<< HEAD
-		
-=======
->>>>>>> branch 'develop' of https://github.com/JangHyunMoon/JSPServlet.git
-		Member result = new MemberService().selectOne(m);
+		int boardNo = Integer.parseInt(request.getParameter("no"));
+		request.getRequestDispatcher("/views/board/boardView.jsp").forward(request, response);
 	}
 
 	/**
