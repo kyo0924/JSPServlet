@@ -84,4 +84,24 @@ public class BoardDao {
 		}
 		return list;
 	}
+	
+	public int insertBoard(Connection conn, Board b) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("insertBoard");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, b.getBoardTitle());
+			pstmt.setString(2, b.getBoardWriter());
+			pstmt.setString(3, b.getBoardContent());
+			pstmt.setString(4, b.getBoardOriginalFilename());
+			pstmt.setString(5, b.getBoardRenamedFilename());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }

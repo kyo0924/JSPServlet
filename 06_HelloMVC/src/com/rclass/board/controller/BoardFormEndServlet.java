@@ -12,6 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.oreilly.servlet.MultipartRequest;
+import com.rclass.board.model.service.BoardService;
+import com.rclass.board.model.vo.Board;
+
+import common.rename.MyFileRenamePolicy;
 
 /**
  * Servlet implementation class BoardFormEndServlet
@@ -39,11 +43,35 @@ public class BoardFormEndServlet extends HttpServlet {
 			request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
 		}
 		
-		String dir = getServletContext().getRealPath("/");
-		String filePath = dir + File.separator + "upload" + File.separator + "board";
+		String root = getServletContext().getRealPath("/upload");
+		String filePath = root + File.separator + "board";
 		int maxSize = 1024 * 1024 * 10;
 		
-		MultipartRequest mr = new MultipartRequest(request, dir, )
+		MultipartRequest mr = new MultipartRequest(request, filePath, maxSize, "UTF-8", new MyFileRenamePolicy());
+		
+		Board b = new Board();
+		b.setBoardTitle(mr.getParameter("title"));
+		b.setBoardWriter(mr.getParameter("writer"));
+		b.setBoardContent(mr.getParameter("content"));
+		// getOriginalFileName
+		b.setBoardOriginalFilename(mr.getOriginalFileName("up_file"));
+		b.setBoardRenamedFilename(mr.getFilesystemName("up_file"));
+		
+		int result = new BoardService().insertBoard(b);
+		
+		String msg = "";
+		String loc = "/board/boardList";
+		String view= "/views/common/msg.jsp";
+		if (result > 0) {
+			msg = "게시글 등록성공";
+		} else {
+			msg = "게시글 등록 실패";
+		}
+		
+		request.setAttribute("msg", msg);
+		request.setAttribute("loc", loc);
+		request.getRequestDispatcher(view).forward(request, response);
+		
 	}
 
 	/**

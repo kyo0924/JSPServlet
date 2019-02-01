@@ -27,7 +27,7 @@ public class BoardViewServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int boardNo = request.getParameter("no");
+		int boardNo = Integer.parseInt(request.getParameter("no"));
 		request.getRequestDispatcher("/views/board/boardView.jsp").forward(request, response);
 	}
 
