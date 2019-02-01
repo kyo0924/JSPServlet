@@ -52,10 +52,24 @@
 				</td>
 			</tr>
 		</table>
+		<!-- 게시물 삭제를 위해 게시물번호, 파일경로 정보 필요 -->
+		<form name="deleteFrm" action="<%=request.getContextPath()%>/noticeDelete"  method="post">
+			<input type="hidden" name="deleteNo" value="<%=n.getNoticeNo()%>"/>
+			<input type="hidden" name="deleteFile" value="<%=n.getFilePath() %>"/>
+		</form>
 		
 		<script>
 			function fn_updateNotice() {
 				location.href = "<%=request.getContextPath()%>/notice/noticeUpdate?no=<%=n.getNoticeNo()%>";
+			}
+			
+			function fn_deleteNotice() {
+				var flag = confirm("게시물을 지우겠습니까?");
+				if (flag) {
+					deleteFrm.submit();
+				} else {
+					return;
+				}
 			}
 		</script>
 	</section>
