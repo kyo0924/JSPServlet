@@ -39,7 +39,7 @@
 <section id="board-container">
 	
 	<h2>게시판 수정</h2>
-	<form action="/board/boardUpdateEnd" method="post">
+	<form action="/board/boardUpdateEnd" method="post" enctype="multipart/form-data">
 	
 		<input type="hidden" name="boardNo" value="<%=b.getBoardNo()%>"/>
 		
@@ -54,6 +54,17 @@
 				<th>작성자</th>
 				<td>
 					<input type="text" name="writer" value="<%=b.getBoardWriter()%>" readonly/>
+				</td>
+			</tr>
+			<tr>
+				<th>첨부파일</th>
+				<td>
+					<%if(b.getBoardRenamedFilename() != null) { %>
+					<input type="file" name="uploadFile" value="<%=b.getBoardRenamedFilename()%>"/>
+					<span><%=b.getBoardOriginalFilename() %></span>
+					<%} else {%>
+					<input type="file" name="uploadFile"/>
+					<%} %>
 				</td>
 			</tr>
 			<tr>
@@ -72,6 +83,8 @@
 
 </section>
 <script>
+	
+
 	function validate() {
 		if ($("[name=content]").val().trim().length == 0) {
 			alert("내용을 입력해주세요");
