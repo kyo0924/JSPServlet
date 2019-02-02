@@ -29,6 +29,37 @@ public class BoardDao {
 			e.printStackTrace();
 		}
 	}
+	
+	public Board selectOne(Connection conn, int boardNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Board b = null;
+		String sql = prop.getProperty("selectOne");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardNo);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				b = new Board();
+				b.setBoardNo(rs.getInt("board_no"));
+				b.setBoardTitle(rs.getString("board_title"));
+				b.setBoardWriter(rs.getString("board_writer"));
+				b.setBoardContent(rs.getString("board_content"));
+				b.setBoardOriginalFilename(rs.getString("board_original_filename"));
+				b.setBoardRenamedFilename(rs.getString("board_renamed_filename"));
+				b.setBoardDate(rs.getDate("board_date"));
+				b.setBoardReadcount(rs.getInt("board_readcount"));
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return b;
+	}
 
 	public int selectBoardCount(Connection conn) {
 		PreparedStatement pstmt = null;

@@ -14,7 +14,14 @@ import com.rclass.board.model.vo.Board;
 public class BoardService {
 	
 	private BoardDao dao = new BoardDao();
-
+	
+	public Board selectOne(int boardNo) {
+		Connection conn = getConnection();
+		Board result = dao.selectOne(conn, boardNo);
+		close(conn);
+		return result;
+	}
+	
 	public int selectBoardCount() {
 		Connection conn = getConnection();
 		int result = dao.selectBoardCount(conn);
@@ -39,4 +46,5 @@ public class BoardService {
 		close(conn);
 		return result;
 	}
+	
 }

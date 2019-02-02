@@ -2,6 +2,7 @@ package com.rclass.notice.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -45,9 +46,10 @@ public class NoticeDeleteServlet extends HttpServlet {
 		int result = new NoticeService().deleteNotice(n);
 		
 		if (result > 0) {
-			File deleteFile2 = new File(filePath + "/" + deleteFile);
+//			File deleteFile2 = new File(filePath + "/" + deleteFile);
+			File deleteFile2 = Paths.get(filePath, deleteFile).toFile();
 			deleteFile2.delete();
-			msg = "게시물이 삭제되었습니다";
+			msg = "게시물이 삭제되었습니다(Paths.get(filePath,fileName).toFile())";
 			loc = "/notice/noticeList";
 		} else {
 			msg = "게시물 삭제 실패";

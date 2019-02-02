@@ -12,16 +12,16 @@ import com.rclass.board.model.service.BoardService;
 import com.rclass.board.model.vo.Board;
 
 /**
- * Servlet implementation class BoardViewServlet
+ * Servlet implementation class BoardUpdateServlet
  */
-@WebServlet("/board/boardView")
-public class BoardViewServlet extends HttpServlet {
+@WebServlet("/board/boardUpdate")
+public class BoardUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardViewServlet() {
+    public BoardUpdateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,10 +33,8 @@ public class BoardViewServlet extends HttpServlet {
 		
 		int boardNo = Integer.parseInt(request.getParameter("no"));
 		Board b = new BoardService().selectOne(boardNo);
-		System.out.println("------Board selectOne---------");
-		System.out.println(b);
 		request.setAttribute("board", b);
-		request.getRequestDispatcher("/views/board/boardView.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/board/boardUpdate.jsp").forward(request, response);
 	}
 
 	/**

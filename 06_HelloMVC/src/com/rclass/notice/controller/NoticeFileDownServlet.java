@@ -46,6 +46,8 @@ public class NoticeFileDownServlet extends HttpServlet {
 		
 		// 1. 실제 파일 저장 경로 가져오기
 		String dir = getServletContext().getRealPath("/upload/notice");
+		/*String root = getServletContext().getRealPath("/upload");
+		String filePath = root + File.separator + "notice";*/
 		
 		// 2. 입출력스트림 생성하기
 		// 파일과 연결
@@ -66,7 +68,8 @@ public class NoticeFileDownServlet extends HttpServlet {
 		boolean isMSIE = request.getHeader("user-agent").indexOf("MSIE") != -1 || request.getHeader("user-agent").indexOf("Trident") != - 1;
 	
 		if (isMSIE) {
-			resFileName = URLEncoder.encode(fname, "UTF-8").replaceAll("\\", "%20");  // 공백을 +로 표시하는 것이 존재
+//			resFileName = URLEncoder.encode(fname, "UTF-8").replaceAll("\\", "%20"); 
+			resFileName = URLEncoder.encode(fname, "UTF-8").replaceAll("\\s", "%20");  // %20 : 공백을 의미
 		} else {
 			// 한글 파일 깨지는 것 방지 UTF-8, ISO-8859-1
 			resFileName = new String(fname.getBytes("UTF-8"),"ISO-8859-1");

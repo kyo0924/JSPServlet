@@ -1,27 +1,23 @@
 package com.rclass.board.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.rclass.board.model.service.BoardService;
-import com.rclass.board.model.vo.Board;
-
 /**
- * Servlet implementation class BoardViewServlet
+ * Servlet implementation class BoardUpdateEndServlet
  */
-@WebServlet("/board/boardView")
-public class BoardViewServlet extends HttpServlet {
+@WebServlet("/board/boardUpdateEnd")
+public class BoardUpdateEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardViewServlet() {
+    public BoardUpdateEndServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,13 +26,8 @@ public class BoardViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		int boardNo = Integer.parseInt(request.getParameter("no"));
-		Board b = new BoardService().selectOne(boardNo);
-		System.out.println("------Board selectOne---------");
-		System.out.println(b);
-		request.setAttribute("board", b);
-		request.getRequestDispatcher("/views/board/boardView.jsp").forward(request, response);
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
