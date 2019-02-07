@@ -46,8 +46,19 @@ public class BoardDao {
 				bc.setBoardCommentNo(rs.getInt("board_comment_no"));
 				bc.setBoardCommentLevel(rs.getInt("board_comment_level"));
 				bc.setBoardCommentWriter(rs.getString("board_comment_writer"));
+				bc.setBoardCommentContent(rs.getString("board_comment_content"));
+				bc.setBoardRef(rs.getInt("board_Ref"));
+				bc.setBoardCommentRef(rs.getInt("board_comment_ref"));
+				bc.setBoardCommentDate(rs.getDate("board_comment_date"));
+				list.add(bc);
 			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rs);
 		}
+		return list;
 	}
 	
 	public int insertComment(Connection conn, BoardComment comment) {

@@ -67,7 +67,8 @@ public class BoardViewEndServlet extends HttpServlet {
 		// hasRead true이면 조회수 증가, false이면 유지
 		Board b = new BoardService().selectOne(boardNo, hasRead);
 		if (b != null) { 
-			List<BoardComment> list = new BoardService().selectCommentAll(boardNo);
+			List<BoardComment> comments = new BoardService().selectCommentAll(boardNo);
+			request.setAttribute("comments", comments);
 		}
 		request.setAttribute("board", b);
 		request.getRequestDispatcher("/views/board/boardView2.jsp").forward(request, response);

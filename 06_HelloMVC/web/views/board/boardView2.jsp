@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.rclass.board.model.vo.Board"%>
+    pageEncoding="UTF-8" import="com.rclass.board.model.vo.*, java.util.*"%>
     
 <%@ include file= "/views/common/header.jsp" %>
 <%
 	Board b = (Board) request.getAttribute("board");
+	List<BoardComment> comments = (List) request.getAttribute("comments");
 %>
 <style>
     section#board-container{width:600px; margin:0 auto; text-align:center;}
@@ -11,6 +12,20 @@
     table#tbl-board{width:500px; margin:0 auto; border:1px solid black; border-collapse:collapse; clear:both; }
     table#tbl-board th {width: 125px; border:1px solid; padding: 5px 0; text-align:center;} 
     table#tbl-board td {border:1px solid; padding: 5px 0 5px 10px; text-align:left;}
+    
+        table#tbl-comment{width:580px; margin:0 auto; border-collapse:collapse; clear:both; } 
+    table#tbl-comment tr td{border-bottom:1px solid; border-top:1px solid; padding:5px; text-align:left; line-height:120%;}
+    table#tbl-comment tr td:first-of-type{padding: 5px 5px 5px 50px;}
+    table#tbl-comment tr td:last-of-type {text-align:right; width: 100px;}
+    table#tbl-comment button.btn-reply{display:none;}
+    table#tbl-comment tr:hover {background:lightgray;}
+    table#tbl-comment tr:hover button.btn-reply{display:inline;}
+    table#tbl-comment tr.level2 {color:gray; font-size: 14px;}
+    table#tbl-comment sub.comment-writer {color:navy; font-size:14px}
+    table#tbl-comment sub.comment-date {color:tomato; font-size:10px}
+    table#tbl-comment tr.level2 td:first-of-type{padding-left:100px;}
+    table#tbl-comment tr.level2 sub.comment-writer {color:#8e8eff; font-size:14px}
+    table#tbl-comment tr.level2 sub.comment-date {color:#ff9c8a; font-size:10px}
 </style>
 
 	<section id="board-container">
@@ -68,6 +83,21 @@
 					<button type="submit" id="btn-insert">등록</button>
 				</form>
 			</div>
+			<table id="tbl-comment">
+			<%if(comments != null) {
+				for(BoardComment bc : comments) {%>
+				<tr class="level1">
+					<td>
+						<sub class="comment-writer"><%=bc.getBoardCommentWriter() %></sub>
+						<sub class="comment-date"><%=bc.getBoardCommentDate() %></sub>
+						<br/>
+						<%=bc.getBoardCommentContent() %>
+					</td>
+				</tr>
+				<%
+				}
+			 }%>
+			</table>
 		</div>
 	</section>
 	
