@@ -93,6 +93,9 @@
 						<br/>
 						<%=bc.getBoardCommentContent() %>
 					</td>
+					<td>
+						<button class="btn-reply" value="<%=bc.getBoardCommentNo()%>">답글</button>
+					</td>
 				</tr>
 				<%
 				}
