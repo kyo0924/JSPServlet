@@ -32,7 +32,7 @@ public class BoardUpdateServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int boardNo = Integer.parseInt(request.getParameter("no"));
-		Board b = new BoardService().selectOne(boardNo);
+		Board b = new BoardService().selectOne(boardNo, true);
 		request.setAttribute("board", b);
 		request.getRequestDispatcher("/views/board/boardUpdate.jsp").forward(request, response);
 	}

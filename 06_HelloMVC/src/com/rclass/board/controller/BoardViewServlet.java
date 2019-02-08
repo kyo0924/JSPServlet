@@ -14,7 +14,7 @@ import com.rclass.board.model.vo.Board;
 /**
  * Servlet implementation class BoardViewServlet
  */
-@WebServlet("/board/boardView")
+//@WebServlet("/board/boardView")
 public class BoardViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -32,7 +32,7 @@ public class BoardViewServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int boardNo = Integer.parseInt(request.getParameter("no"));
-		Board b = new BoardService().selectOne(boardNo);
+		Board b = new BoardService().selectOne(boardNo, true);
 		System.out.println("------Board selectOne---------");
 		System.out.println(b);
 		request.setAttribute("board", b);
