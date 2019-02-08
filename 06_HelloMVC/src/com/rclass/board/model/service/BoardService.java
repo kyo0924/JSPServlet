@@ -33,6 +33,16 @@ public class BoardService {
 		return result;
 	}
 	
+	public int deleteComment(int delNo) {
+		Connection conn = getConnection();
+		int result = dao.deleteComment(conn, delNo);
+		if (result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		return result;
+	}
+	
 	public Board selectOne(int boardNo, boolean hasRead) {
 		Connection conn = getConnection();
 		Board b = dao.selectOne(conn, boardNo);

@@ -82,6 +82,27 @@ public class BoardDao {
 		return result;
 	}
 	
+	public int deleteComment(Connection conn, int delNo) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteComment");
+		int result = 0;
+		System.out.println(sql);
+		System.out.println(delNo);
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, delNo);
+		
+			result = pstmt.executeUpdate();
+			System.out.println("result : " + result);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
 	public int increReadCount(Connection conn, int boardNo) {
 		PreparedStatement pstmt = null;
 		int result = 0;
