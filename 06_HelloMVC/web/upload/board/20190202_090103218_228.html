@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>테이블 태그</title>
+</head>
+
+<body>
+    <table border=1 width=300 height=100>
+        <tr>
+            <td>내용1</td>
+            <td>내용2</td>
+            <td>내용3</td>
+            <td>내용4</td>
+            <td>내용5</td>
+            <td>내용6</td>
+        </tr>
+        <tr>
+            <td>내용1</td>
+            <td>내용2</td>
+            <td>내용3</td>
+            <td>내용4</td>
+            <td>내용5</td>
+            <td>내용6</td>
+        </tr>
+
+    </table>
+    <table border=10 width=150 height=150>
+        <tr>
+            <td colspan=6>내용</td>
+        </tr>
+
+        <tr>
+            <th>1</th>
+            <th>2</th>
+            <th>3</th>
+            <th>4</th>
+            <th>5</th>
+            <th>6</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>5</td>
+            <td>6</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>5</td>
+            <td>6</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>5</td>
+            <td>6</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>5</td>
+            <td>6</td>
+        </tr>
+    </table>
+    <!-- 성적 관리 테이블 -->
+    <table border=1>
+
+        <tr>
+            <th>No</th>
+            <th>이름</th>
+            <th>학년</th>
+            <th>국어</th>
+            <th>수학</th>
+            <th>영어</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>유병승</td>
+            <td>3</td>
+            <td>60</td>
+            <td>100</td>
+            <td>70</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>신재민</td>
+            <td>3</td>
+            <td>50</td>
+            <td>10</td>
+            <td>30</td>
+        </tr>
+        <!--어느 위치에 있든 테이블 상단에 위치-->
+        <caption><b>3학년 성적표</b></caption>
+    </table>
+
+    <figure>
+
+        <table border=1>
+
+            <tr>
+                <th>No</th>
+                <th>이름</th>
+                <th>학년</th>
+                <th>국어</th>
+                <th>수학</th>
+                <th>영어</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>유병승</td>
+                <td>3</td>
+                <td>60</td>
+                <td>100</td>
+                <td>70</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>신재민</td>
+                <td>3</td>
+                <td>50</td>
+                <td>10</td>
+                <td>30</td>
+            </tr>
+        </table>
+        <figcaption>3학년 성적표</figcaption>
+    </figure>
+    <h2>테이블 구조 나누기</h2>
+    <table border=1>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>이름</th>
+                <th>학년</th>
+                <th>국어</th>
+                <th>수학</th>
+                <th>영어</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>유병승</td>
+                <td>3</td>
+                <td>60</td>
+                <td>100</td>
+                <td>70</td>
+            </tr>
+
+            <tr>
+                <td>2</td>
+                <td>신재민</td>
+                <td>3</td>
+                <td>50</td>
+                <td>10</td>
+                <td>30</td>
+            </tr>
+
+        </tbody>
+        <tfoot>
+            <tr>
+                <td>합계</td>
+                <td></td>
+                <td>3</td>
+                <td>110</td>
+                <td>110</td>
+                <td>100</td>
+            </tr>
+        </tfoot>
+    </table>
+    <style>
+        thead {
+            background-color: yellow;
+        }
+
+        /* tbody {
+            background-color: navy;
+            color: white;
+        } */
+
+        tfoot {
+            background-color: red;
+        }
+    </style>
+    <h3>테이블 구조 column으로 나누기</h3>
+    <table border=1>
+        <colgroup>
+            <col>
+            <col style="background-color:mediumpurple;"> <!-- col 1-->
+            <col>
+            <col style="background-color:magenta;">
+            <col style="color:lime;">
+            <col style="background-color:lime;">
+        </colgroup>
+        <tr>
+            <th rowspan='3'>No</th>
+            <th>이름</th>
+            <th>학년</th>
+            <th>국어</th>
+            <th>수학</th>
+            <th>영어</th>
+        </tr>
+        <tr>
+            <!-- <td>1</td> -->
+            <td>유병승</td>
+            <td>3</td>
+            <td>60</td>
+            <td>100</td>
+            <td>70</td>
+        </tr>
+
+        <tr>
+            <!-- <td>2</td> -->
+            <td>신재민</td>
+            <td>3</td>
+            <td>50</td>
+            <td>10</td>
+            <td>30</td>
+        </tr>
+
+        <tr>
+            <td colspan=2>합계</td>
+            <!-- <td></td> -->
+            <td>3</td>
+            <td>110</td>
+            <td>110</td>
+            <td>100</td>
+        </tr>
+    </table>
+    <table border=1 width=200 height=200>
+        <tr>
+            <th>이름</th>
+            <th>점수</th>
+        </tr>
+        <tr>
+            <td>홍민성</td>
+            <td>90</td>
+        </tr>
+        <tr>
+            <td>최민수</td>
+            <td>80</td>
+        </tr>
+        <tr>
+            <td>심은경</td>
+            <td>70</td>
+        </tr>
+    </table>
+    <table width=200 height=200>
+        <tr>
+            <th>이름</th>
+            <th>점수</th>
+        </tr>
+        <tr>
+            <td>홍민성</td>
+            <td>90</td>
+        </tr>
+        <tr>
+            <td>최민수</td>
+            <td>80</td>
+        </tr>
+        <tr>
+            <td>심은경</td>
+            <td>70</td>
+        </tr>
+    </table>
+    <table border="1" width=200>
+        <caption>행 통합 테이블</caption>
+        <tr>
+            <th>1행</th>
+            <td>1행 1열</td>
+        </tr>
+        <tr>
+            <th rowspan=2>2행</th>
+            <td>2행 2열</td>
+        </tr>
+        <tr>
+            <td>3행 2열</td>
+        </tr>
+    </table>
+    <table border="1">
+        <tr>
+            <td colspan=2>지역별 홍차</td>
+        </tr>
+        <tr>
+            <td rowspan=3>중국</td>
+            <td>정산소종</td>
+        </tr>
+        <td>기문</td>
+        <tr>
+            <td>운남</td>
+        </tr>
+        <tr>
+            <td rowspan=4>인도 및 스리랑카</td>
+            <td>아삼</td>
+        </tr>
+        <tr>
+            <td>실론</td>
+        </tr>
+        <tr>
+            <td>다질링</td>
+        </tr>
+        <tr>
+            <td>닐기리</td>
+        </tr>
+    </table>
+    <table border=1 width=200 height=200>
+        <tr>
+            <td>가</td>
+            <td>나</td>
+            <td>다</td>
+            <td rowspan=4>라</td>
+        </tr>
+        <tr>
+            <td>마</td>
+            <td colspan=2 rowspan=3>바</td>
+        </tr>
+        <tr>
+            <td>사</td>
+        </tr>
+        <tr>
+            <td>아</td>
+        </tr>
+        <tr>
+            <td colspan="2">자</td>
+            <td colspan=2>차</td>
+        </tr>
+        <tr>
+            <td colspan=4>카</td>
+        </tr>
+    </table> 
+
+    <h2>무순서 목록</h2>
+    <ul>
+        <li>Coffee</li>
+        <li>Tea</li>
+        <ul type=○>
+            <li>Black tea</li>
+            <li>Green tea</li>
+        </ul>
+        <li>Milk</li>
+    </ul>
+    <h2>순서 목록</h2>
+    <ol>
+        <li>Apples</li>
+        <li>Bananas</li>
+        <li>Lemons</li>
+        <li>Oranges</li>
+    </ol>
+    <h2>정의형 목록</h2>
+    <dl>
+        <dt>첫 번째 아이템</dt>
+        <dd>- HTML5</dd>
+        <dt>두 번째 아이템</dt>
+        <dd>- CSS3</dd>
+        <dt>세 번째 아이템</dt>
+        <dd>- JavaScript</dd>
+    </dl>
+</body>
+
+</html>

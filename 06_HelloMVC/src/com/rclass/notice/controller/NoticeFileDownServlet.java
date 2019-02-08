@@ -46,6 +46,8 @@ public class NoticeFileDownServlet extends HttpServlet {
 		
 		// 1. 실제 파일 저장 경로 가져오기
 		String dir = getServletContext().getRealPath("/upload/notice");
+		/*String root = getServletContext().getRealPath("/upload");
+		String filePath = root + File.separator + "notice";*/
 		
 		// 2. 입출력스트림 생성하기
 		// 파일과 연결
@@ -53,6 +55,7 @@ public class NoticeFileDownServlet extends HttpServlet {
 		
 		BufferedInputStream bis = new BufferedInputStream(new FileInputStream(downFile));
 		// 서버에 있는 파일을 RAM으로 전송! 올림! RAM과 연결지음 서버에 있는 하드와 RAM 연결
+		// InputStream으로 서버의 하드에 있는 파일을 RAM으로 읽어들인 뒤에 OutputStream으로 클라이언트에 출력
 		
 		// 보낼 스트림 작성 (outputStream) stream 정보 어느 스트림에 보내야하는지 서버의 RAM와 클라이언트의 네트워크 카드 연결
 		ServletOutputStream sos = response.getOutputStream();
@@ -61,10 +64,12 @@ public class NoticeFileDownServlet extends HttpServlet {
 		
 		// 3. 한글파일을 위한 파일명 분기 처리 (깨지는거 방지)
 		String resFileName = "";
+		// micro soft internet explorer 호환
 		boolean isMSIE = request.getHeader("user-agent").indexOf("MSIE") != -1 || request.getHeader("user-agent").indexOf("Trident") != - 1;
 	
 		if (isMSIE) {
-			resFileName = URLEncoder.encode(fname, "UTF-8").replaceAll("\\", "%20");  // 공백을 +로 표시하는 것이 존재
+//			resFileName = URLEncoder.encode(fname, "UTF-8").replaceAll("\\", "%20"); 
+			resFileName = URLEncoder.encode(fname, "UTF-8").replaceAll("\\s", "%20");  // %20 : 공백을 의미
 		} else {
 			// 한글 파일 깨지는 것 방지 UTF-8, ISO-8859-1
 			resFileName = new String(fname.getBytes("UTF-8"),"ISO-8859-1");

@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Properties;
 
 import com.rclass.board.model.vo.Board;
+import com.rclass.board.model.vo.BoardComment;
 
 public class BoardDao {
 	
@@ -28,6 +29,104 @@ public class BoardDao {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public List<BoardComment> selectCommentAll(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<BoardComment> list = new ArrayList();
+		String sql = prop.getProperty("selectCommentAll");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				BoardComment bc = new BoardComment();
+				bc.setBoardCommentNo(rs.getInt("board_comment_no"));
+				bc.setBoardCommentLevel(rs.getInt("board_comment_level"));
+				bc.setBoardCommentWriter(rs.getString("board_comment_writer"));
+				bc.setBoardCommentContent(rs.getString("board_comment_content"));
+				bc.setBoardRef(rs.getInt("board_Ref"));
+				bc.setBoardCommentRef(rs.getInt("board_comment_ref"));
+				bc.setBoardCommentDate(rs.getDate("board_comment_date"));
+				list.add(bc);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rs);
+		}
+		return list;
+	}
+	
+	public int insertComment(Connection conn, BoardComment comment) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("insertComment");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, comment.getBoardCommentLevel());
+			pstmt.setString(2, comment.getBoardCommentWriter());
+			pstmt.setString(3, comment.getBoardCommentContent());
+			pstmt.setInt(4, comment.getBoardRef());
+			pstmt.setString(5, comment.getBoardCommentRef() == 0 
+					? null : String.valueOf(comment.getBoardCommentRef()));
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int increReadCount(Connection conn, int boardNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("increReadCount");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public Board selectOne(Connection conn, int boardNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Board b = null;
+		String sql = prop.getProperty("selectOne");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardNo);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				b = new Board();
+				b.setBoardNo(rs.getInt("board_no"));
+				b.setBoardTitle(rs.getString("board_title"));
+				b.setBoardWriter(rs.getString("board_writer"));
+				b.setBoardContent(rs.getString("board_content"));
+				b.setBoardOriginalFilename(rs.getString("board_original_filename"));
+				b.setBoardRenamedFilename(rs.getString("board_renamed_filename"));
+				b.setBoardDate(rs.getDate("board_date"));
+				b.setBoardReadcount(rs.getInt("board_readcount"));
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return b;
 	}
 
 	public int selectBoardCount(Connection conn) {

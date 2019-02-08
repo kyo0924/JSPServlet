@@ -31,6 +31,7 @@
 						<img alt="첨부파일"
 						src="<%=request.getContextPath()%>/images/file.png"
 						width="16px"/>
+						<span><%=n.getFilePath() %></span>
 					</a>
 					<script>
 						function fn_fileDown(fname) {
