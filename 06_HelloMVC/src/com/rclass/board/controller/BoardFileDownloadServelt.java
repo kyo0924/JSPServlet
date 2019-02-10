@@ -50,7 +50,7 @@ public class BoardFileDownloadServelt extends HttpServlet {
 		
 		if (isMSIE) {
 			resFileName = URLEncoder.encode(oName, "UTF-8");
-			resFileName = resFileName.replaceAll("\\", "%20");
+			resFileName = resFileName.replaceAll("\\s", "%20");
 		} else {
 			resFileName = new String(oName.getBytes("UTF-8"), "ISO-8859-1");
 		}
