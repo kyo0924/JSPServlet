@@ -36,6 +36,7 @@ WHERE ROWNUM BETWEEN 1 AND 10;
 SELECT ROWNUM, A.* 
 FROM (SELECT * FROM MEMBER ORDER BY ENROLLDATE DESC) A
 WHERE ROWNUM BETWEEN 2 AND 10; -- 중간부터 시작할 경우 값을 받아오지 못함
+                        
 
 -- ROWNUM이 1부터 시작하는 것뿐만 아니라 다양한 중간 범위에 대해 구하기 위해서 ROWNUM에 별칭(RNUM)을 붙이고 서브쿼리로 넘겨준 뒤
 -- 메인쿼리의 WHERE에서 별칭(RNUM)을 이용하여 ROWNUM의 특정 범위를 구함
@@ -299,3 +300,23 @@ INSERT INTO BOARD_COMMENT VALUES(SEQ_BOARD_COMMENT_NO.NEXTVAL, DEFAULT, 'opqr','
 INSERT INTO BOARD_COMMENT VALUES(SEQ_BOARD_COMMENT_NO.NEXTVAL, DEFAULT, 'efgh','좋은 정보 감사합니다.',33,NULL,DEFAULT);
 commit;
 SELECT * FROM BOARD_COMMENT;
+
+-- 계층형 쿼리~~! 조직도 사장 부사장 부서장 과장(오라클에만 있음)
+-- JOIN을 통해 수평적으로 기준 컬럼을 연결시킨 것과 달리 기준 컬럼을 가지고 수직적으로 관계를 만드는 것.
+-- 조직도, 메뉴, 답변형 게시판(댓글) 구조를 표현하는데 적합
+-- START WITH : 부모행(노드)을 지정
+-- CONNECT BY : 부모/자식 관계 설정
+-- PRIOR : START WITH절에서 제시한 부모행의 기준컬럼을 지정함, 등호(=)와 동등한 레벨로 사용되는 연산자로 동등연산자(등호) 좌우에 올 수 있음
+-- LEVEL : 계층에 대한 정보를 나타냄
+SELECT * 
+FROM BOARD_COMMENT 
+-- 부모 노드 지정
+START WITH BOARD_COMMENT_LEVEL = 1 
+-- BOARD_COMMENT_REF는 부모노드의 BOARD_COMMENT_NO와 연결되므로 PRIOR 키워드는 부모노드의 기준 컬럼 BOARD_COMMENT_NO 앞에 있어야 한다
+-- 부모노드의 BOARD_COMMENT_NO와 값이 같은 BOARD_COMMENT_REF를 가진 노드는 부모노드가 가진 레벨의 다음 레벨을 갖는다. 
+-- EX) LEVEL1 BOARD_COMMENT_NO 4를 BOARD_COMMENT_REF로 가진 BOARD_COMMENT_NO가 7인 노드는 LEVEL2
+CONNECT BY PRIOR BOARD_COMMENT_NO = BOARD_COMMENT_REF 
+ORDER SIBLINGS BY BOARD_COMMENT_DATE ASC;
+
+SELECT LPAD(1, 5 * (level - 1), ' ') || board_comment_content FROM BOARD_COMMENT START WITH BOARD_COMMENT_LEVEL = 1 CONNECT BY PRIOR BOARD_COMMENT_NO = BOARD_COMMENT_REF ORDER SIBLINGS BY BOARD_COMMENT_DATE ASC;
+SELECT LPAD(' ', 5 * (level - 1), ' ') || board_comment_content, A.* FROM BOARD_COMMENT A START WITH BOARD_COMMENT_LEVEL = 1 CONNECT BY PRIOR BOARD_COMMENT_NO = BOARD_COMMENT_REF ORDER SIBLINGS BY BOARD_COMMENT_DATE ASC;
