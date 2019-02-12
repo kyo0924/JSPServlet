@@ -70,8 +70,8 @@ public class AjaxJsonServlet extends HttpServlet {
 		response.setContentType("application/json;charset=UTF-8");
 		response.getWriter().println(jarr);*/
 		response.setContentType("application/json;charset=UTF-8");
-//		new Gson().toJson(list, response.getWriter());
-		new Gson().toJson(u, response.getWriter());
+		new Gson().toJson(list, response.getWriter());
+//		new Gson().toJson(u, response.getWriter());
 	}
 
 	/**
