@@ -24,6 +24,8 @@
 <body>
 <h2> jquery-ajax : csv</h2>
 	<p>csv란 : 데이터를 특정한 특수문자로 구별하여 저장한 데이터
+	CSV(comma-separated values)는 몇 가지 필드를 쉼표(,)로 구분한 텍스트 데이터 및 텍스트 파일
+	'tab-separated values'(TSV)나, 반각 스페이스로 구분하는 'space-separated values'(SSV) 등을 합쳐서 character-separated values (CSV)라고 부르기도함
 	 예) 유병승, 19, 경기도 시흥 | 이일교, 29, 노원구
 	 유병승, 19, 경기도 시흥\n 
 	 이일교, 29, 노원구

@@ -29,7 +29,7 @@ div#mydiv {
 				success: function(data) {
 					console.log(data);
 					var temp=$("#mydiv").text() + data;
-					$("#mydiv").html(data);
+					$("#mydiv").html(temp);
 				},
 				
 				error: function(request, status, error) {

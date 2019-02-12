@@ -23,7 +23,9 @@
 				dataType: "json",
 				success: function(data) {
 					console.log(data);
+					// 서버에서 인코딩한 뒤 보낸 데이터 : %EC%9C%A0%EB%B3%91%EC%8A%B9 
 					console.log(data['userId']);
+					// 서버에서 인코딩한 뒤 보낸 데이터를 decode 처리 : 유병승
 					console.log(decodeURI(data['userId']));
 					/* console.log(data.name + " type : " + typeof data.name);
 					console.log(data.height + " type : " + typeof data.height);
