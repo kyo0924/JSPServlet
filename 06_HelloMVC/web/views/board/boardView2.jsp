@@ -13,7 +13,7 @@
     table#tbl-board th {width: 125px; border:1px solid; padding: 5px 0; text-align:center;} 
     table#tbl-board td {border:1px solid; padding: 5px 0 5px 10px; text-align:left;}
     
-        table#tbl-comment{width:580px; margin:0 auto; border-collapse:collapse; clear:both; } 
+    table#tbl-comment{width:580px; margin:0 auto; border-collapse:collapse; clear:both; } 
     table#tbl-comment tr td{border-bottom:1px solid; border-top:1px solid; padding:5px; text-align:left; line-height:120%;}
     table#tbl-comment tr td:first-of-type{padding: 5px 5px 5px 50px;}
     table#tbl-comment tr td:last-of-type {text-align:right; width: 100px;}

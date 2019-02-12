@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 태그 형식 데이터 전송에 사용 -->
+<books>
+	<book>
+		<subject>소설</subject>
+		<title>해질무렵</title>
+		<author>황석영</author>
+	</book>
+	<book>
+		<subject>소설</subject>
+		<title>마션</title>
+		<author>앤디위어</author>
+	</book>
+	<book>
+		<subject>소설</subject>
+		<title>어린왕자</title>
+		<author>생떽쥐베리</author>
+	</book>
+	<book>
+		<subject>소설</subject>
+		<title>개미</title>
+		<author>베르나르베르베르</author>
+	</book>
+	<book>
+		<subject>프로그래밍</subject>
+		<title>Oracle</title>
+		<author>오라클</author>
+	</book>
+	<book>
+		<subject>프로그래밍</subject>
+		<title>Java</title>
+		<author>제임스 고슬링</author>
+	</book>
+	<book>
+		<subject>프로그래밍</subject>
+		<title><![CDATA[jsp&Servlet]]></title>
+		<author>유병승</author>
+	</book>
+</books>

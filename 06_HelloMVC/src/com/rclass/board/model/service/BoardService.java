@@ -46,6 +46,8 @@ public class BoardService {
 	public Board selectOne(int boardNo, boolean hasRead) {
 		Connection conn = getConnection();
 		Board b = dao.selectOne(conn, boardNo);
+		
+		// 게시글이 존재하고 아직 읽지 않은 경우 조회수 1 증가
 		if (b != null && !hasRead) {
 			int result = dao.increReadCount(conn, boardNo);
 			if (result > 0)

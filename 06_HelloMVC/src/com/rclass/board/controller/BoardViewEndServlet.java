@@ -61,6 +61,7 @@ public class BoardViewEndServlet extends HttpServlet {
 		if (!hasRead) {
 			// 브라우저가 닫히거나 세션이 종료되었을 때 쿠키 삭제
 			Cookie c = new Cookie("boardCookie", boardCookieVal + "|" + boardNo + "|");
+			// A negative value means that the cookie is not stored persistently and will be deleted when the Web browser exits.
 			c.setMaxAge(-1);
 			response.addCookie(c);
 		}
