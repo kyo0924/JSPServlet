@@ -36,8 +36,17 @@ public class BoardFileDownloadServlet extends HttpServlet {
 		String rName = request.getParameter("rName");
 		String oName = request.getParameter("oName");
 		
-		// 디렉토리
+		// 서버에 저장되어있는 첨부파일의 경로 가져오기 : 프로젝트 절대 경로 + /upload/board/
+		// C:/Users/abc95/git/JSPServlet/06_HelloMVC/web/upload/board/
+		/* 
+		Gets the real path corresponding to the given virtual path. 
+		For example, if path is equal to /index.html,this method will return the absolute 
+		file path on the server's filesystem to which a request of the form 
+		http: // <host>: <port> / <contextPath> /index.html would be mapped,
+		 */
+	
 		String saveDir = getServletContext().getRealPath("/upload/board/");
+		System.out.println(saveDir);
 		File downFile = new File(saveDir + rName);
 		
 		BufferedInputStream bis = new BufferedInputStream(new FileInputStream(downFile));
