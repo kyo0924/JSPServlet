@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>EL : 공유 내장객체 page session request application에 있는 값 가져올 때</title>
 </head>
 <body>
 	<table>
@@ -15,7 +15,7 @@
 			<th>경험치</th>
 		</tr>
 		<tr>
-			<td>${name }</td>
+			<td>${requestScope.name }</td>
 			<td>${level }</td>
 			<td>${character }</td>
 			<td>${exp }</td>
@@ -27,11 +27,13 @@
 			<th>나이</th>
 			<th>주소</th>
 		</tr>
+		<%-- <c:forEach var="list" item="${list }"> --%>
 		<tr>
 			<td>${list.get(0)["name"] }</td>
 			<td>${list.get(0)["age"] }</td>
 			<td>${list.get(0)["address"] }</td>
 		</tr>
+		<!-- </c:forEach> -->
 	</table>
 	<h1>${list }</h1>
 </body>

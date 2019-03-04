@@ -31,10 +31,13 @@ public class ElTestServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("name", "신재민");
+		/*request.setAttribute("name", "신재민");*/
 		request.setAttribute("level", "브론즈");
 		request.setAttribute("character", "호빵맨");
 		request.setAttribute("exp", 10000);
+		
+		request.getSession().setAttribute("name", "박진우");
+		
 		List<Person> list = new ArrayList();
 		list.add(new Person("이일교", 31, "노원구"));
 		list.add(new Person("신재민", 27, "동대문"));

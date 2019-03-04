@@ -21,7 +21,8 @@
 </head>
 <body>
 	<header>
-		<h3><%=request.getParameter("title")%></h3>
+		<%-- <h3><%=request.getParameter("title")%></h3> --%>
+		<h3>${param.title} </h3>
 		<ul>
 			<li>메인메뉴</li>
 			<li>게시판</li>
