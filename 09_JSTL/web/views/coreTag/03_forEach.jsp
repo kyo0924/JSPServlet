@@ -82,5 +82,17 @@ table, tr, td {
 		</tr>
 	</c:forEach>
 	</table>
+	<h1>forTokens</h1>
+	<%
+		String name = "유병승, 청하, 이나영, 권민아, 장미란";
+		request.setAttribute("name", name);
+	%>
+	<c:forTokens var="name" items="${name }" delims=",">
+		<h4>${name }</h4>
+	</c:forTokens>
+	
+	<c:forTokens var="name" items="자바| C, C#| javascript, jsp" delims=",|">
+		<h4>${name }</h4>
+	</c:forTokens>
 </body>
 </html>
