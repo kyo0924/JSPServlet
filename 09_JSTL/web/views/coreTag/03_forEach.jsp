@@ -9,6 +9,12 @@
 <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
 <%request.setCharacterEncoding("UTF-8"); %>
 </head>
+<style>
+table, tr, td {
+	border: 1px solid black;
+	
+}
+</style>
 <body>
 	<h2>forEach문 활용</h2>
 	<p>일반적인 반복문을 의미한다.
@@ -56,11 +62,25 @@
 		list.add(new Person("이정복", 26, "중계동"));
 		list.add(new Person("임지안", 18, "성북구"));
 		request.setAttribute("list", list);
-		String[] stars={"유병승", "원빈", "장동건", "정우성", "김미리"};
+		String[] stars={"유병승", "원빈", "장동건", "정우성", "김미리", "태연"};
+		request.setAttribute("stars", stars);
 	%>
 	<c:forEach var="p" items="${list }" varStatus="vs">
 		<%-- <p>${vs.count } ${p.name } ${p.age } ${p.address }</p> --%>
 		<h${vs.count }>${vs.count } ${p.name } ${p.age } ${p.address }</h${vs.count}>
 	</c:forEach>
+	<c:forEach var="i" begin="0" end="4" varStatus="vs">
+		<h${vs.count }>${stars[i]}</h${vs.count}>
+	</c:forEach>
+	list에 있는 값을 테이블 넣기!
+	<table id="member">
+	<c:forEach var="i" begin="0" end="${list.size() }" varStatus="vs">
+		<tr>
+			<td>${list[i].name }</td>
+			<td>${list[i].age }</td>
+			<td>${list[i].address }</td>
+		</tr>
+	</c:forEach>
+	</table>
 </body>
 </html>
