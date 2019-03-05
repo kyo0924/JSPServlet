@@ -47,6 +47,7 @@ public class AjaxCsvServlet extends HttpServlet {
 		System.out.println(csv);
 		response.setContentType("text/csv;charset=UTF-8");
 		// success 함수의 매개변수로 들어감
+		// Returns a PrintWriter object that can send character text to the client.
 		response.getWriter().append(csv);
 		
 	}

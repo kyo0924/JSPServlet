@@ -52,7 +52,8 @@ public class AjaxJsonServlet extends HttpServlet {
 		list.add(new User(4, "yy", "이영우", "서울시 동작구"));
 		
 		User u = new User(5, URLEncoder.encode("유병승", "UTF-8"), "유병승", "전세계");
-		/*JSONArray jarr = new JSONArray();
+		/*
+		JSONArray jarr = new JSONArray();
 		
 		for (User u : list) {
 			
@@ -70,8 +71,8 @@ public class AjaxJsonServlet extends HttpServlet {
 		response.setContentType("application/json;charset=UTF-8");
 		response.getWriter().println(jarr);*/
 		response.setContentType("application/json;charset=UTF-8");
-		new Gson().toJson(list, response.getWriter());
-//		new Gson().toJson(u, response.getWriter());
+//		new Gson().toJson(list, response.getWriter());
+		new Gson().toJson(u, response.getWriter());
 	}
 
 	/**

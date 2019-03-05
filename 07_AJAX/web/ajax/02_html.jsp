@@ -19,6 +19,7 @@
 	<script>
 		function htmlTest() {
 			$.ajax({
+				// 해당 url을 가진 서블릿에 페이지 요청, 성공시 html 문서를 결과로 받음
 				url: "<%=request.getContextPath()%>/js/html.do",
 				type: "get",
 				dataType: "html",

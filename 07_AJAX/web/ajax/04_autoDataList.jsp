@@ -21,6 +21,7 @@
 					url: "<%=request.getContextPath()%>/js/data.do",
 					type: "post",
 					// 서버에서 request.getParameter("search")를 하면 input으로 넘긴 값을 받아옴
+					// data : 서버에 전송할 데이터를 key : value 형식으로 설정
 					data: {"search": $("#searchName").val()},
 					success: function(data) {
 						var list = data.split(",");

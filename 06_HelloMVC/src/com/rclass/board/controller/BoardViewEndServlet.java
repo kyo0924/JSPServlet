@@ -65,7 +65,7 @@ public class BoardViewEndServlet extends HttpServlet {
 			c.setMaxAge(-1);
 			response.addCookie(c);
 		}
-		// hasRead true이면 조회수 증가, false이면 유지
+		// hasRead false이면 조회수 증가, true이면 유지
 		Board b = new BoardService().selectOne(boardNo, hasRead);
 		if (b != null) { 
 			List<BoardComment> comments = new BoardService().selectCommentAll(boardNo);
