@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>EL : 공유 내장객체 page session request application에 있는 값 가져올 때</title>
+<title>EL : 공유 내장객체 page request session application에 있는 값 가져올 때</title>
 </head>
 <body>
 	<table>
@@ -32,6 +32,12 @@
 			<td>${list.get(0)["name"] }</td>
 			<td>${list.get(0)["age"] }</td>
 			<td>${list.get(0)["address"] }</td>
+		</tr>
+		<tr>
+			<td>${list.get(1).name}</td>
+			<td>${list.get(1).age}</td>
+			<td>${list.get(1).address}</td>
+			
 		</tr>
 		<!-- </c:forEach> -->
 	</table>
