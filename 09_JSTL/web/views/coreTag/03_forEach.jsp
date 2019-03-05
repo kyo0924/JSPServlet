@@ -56,6 +56,7 @@
 		list.add(new Person("이정복", 26, "중계동"));
 		list.add(new Person("임지안", 18, "성북구"));
 		request.setAttribute("list", list);
+		String[] stars={"유병승", "원빈", "장동건", "정우성", "김미리"};
 	%>
 	<c:forEach var="p" items="${list }" varStatus="vs">
 		<%-- <p>${vs.count } ${p.name } ${p.age } ${p.address }</p> --%>
