@@ -69,12 +69,12 @@ table, tr, td {
 		<%-- <p>${vs.count } ${p.name } ${p.age } ${p.address }</p> --%>
 		<h${vs.count }>${vs.count } ${p.name } ${p.age } ${p.address }</h${vs.count}>
 	</c:forEach>
-	<c:forEach var="i" begin="0" end="4" varStatus="vs">
+	<c:forEach var="i" begin="0" end="5" varStatus="vs">
 		<h${vs.count }>${stars[i]}</h${vs.count}>
 	</c:forEach>
 	list에 있는 값을 테이블 넣기!
 	<table id="member">
-	<c:forEach var="i" begin="0" end="${list.size() }" varStatus="vs">
+	<c:forEach var="i" begin="0" end="${list.size() - 1}" varStatus="vs">
 		<tr>
 			<td>${list[i].name }</td>
 			<td>${list[i].age }</td>
