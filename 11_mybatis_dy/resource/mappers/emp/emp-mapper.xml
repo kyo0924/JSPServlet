@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="emp">
+	<select id="selectAll" resultType="map">
+		select * from kh.employee
+	</select>
+
+	<!-- select * from kh.employee where 컬럼명 like '%'||#{keyword}||'%' 컬럼명을 
+		동적으로 변하게 할 것이다. $ / # : 이 둘의 차이는 type에 따라서 형식을 맞춰주느냐 아니면 그냥 리터럴 값을 넣어주느냐 
+		차이 $ = type에 따라 형식을 맞춰준다. // # = 리터럴값이 그대로 들어감 -->
+	<select id="selectSearch" parameterType="map" resultType="map">
+		select A.*, J.JOB_NAME from
+		(select A.*, case
+			when substr(emp_no,8,1) in (1,3) then
+			'M' 
+			else 'F' 
+			end gender
+			from kh.employee A) A
+		left join kh.job J on A.job_code=J.job_code
+		where 1=1
+		<!-- where절 뒤에 1=1인 true조건을 넣고 뒤를 and로 연결 -->
+		<!-- where ${searchType} like '%'||#{keyword}||'%' -->
+		<!-- if문은 jstl이랑 비슷하다 test안에 조건문을 적는다 / if문안에 변수는 그냥 key값을 넣어줘도 됨 그리고 and도 
+			그냥 써주면 됨 -->
+		<if test="searchType!=null and searchType!=''">
+			and ${searchType} like '%'||#{keyword}||'%'
+		</if>
+		<!-- null이 아닐때와 공백으로 넘어올 때가 있기때문에 공백처리도 해줘야한다. 그리고 쿼리문을 이어줘야되기 때문에 and로 
+			시작 -->
+		<if test="gender!=null and gender!=''">
+			and gender=#{gender}
+		</if>
+		<!-- <if test="salary!=null and salary!=''"> <if test="sal eq 'sal_le'"> 
+			and salary <![CDATA[ <=]]> #{salary} </if> <if test="sal eq 'sal_ge'"> and 
+			salary <![CDATA[ >=]]> #{salary} </if> </if> 아래처럼도 가능 -->
+		<choose>
+			<when test="sal eq 'sal_ge'">
+				and salary <![CDATA[ >=]]>
+				#{salary}
+			</when>
+			<when test="sal eq 'sal_le'">
+				and salary <![CDATA[ <=]]>
+				#{salary}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+		<if test="hire_date!=null and hire_date!=''">
+			<choose>
+				<when test="hire_option eq 'hire_up'">
+					and to_date(to_char(hire_date, 'yyyy-mm-dd'), 'yyyy-mm-dd') <![CDATA[ >=]]>
+					to_date(#{hire_date},'yyyy-mm-dd')
+				</when>
+				<when test="hire_option eq 'hire_down'">
+					and to_date(to_char(hire_date, 'yyyy-mm-dd'), 'yyyy-mm-dd') <![CDATA[ <=]]>
+					to_date(#{hire_date},'yyyy-mm-dd')
+				</when>
+			</choose>
+		</if>
+		<if test="job!=null and job!=''">
+			and J.job_code IN
+			<!-- collection안에는 배열이 들어감 , item은 배열을 담는 변수 
+				open close는 for문이 돌기 전 다 돌고난 후 값을 찍어주고 더 찾아보자	
+				separator 는 쉼표로 나눈??	-->			
+			<foreach collection="job" item="j" index="i" open="(" close=")" separator="," >
+				#{j}
+			</foreach>		
+		</if>
+
+	</select>
+	
+	<select id="selectCount" resultType="_int">
+		select count(*) from kh.employee
+	</select>
+	<select id="selectPaging" resultType="map">
+		select * from kh.employee
+	</select>
+
+
+</mapper>

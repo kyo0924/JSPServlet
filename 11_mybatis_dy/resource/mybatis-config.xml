@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org/DTD config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+	<!-- driver.properties라는 파일에 접속정보를 적어주고 
+		여기서 el표현식으로 불러와서 간단하게 표기 가능 -->
+	<properties resource="/driver.properties">
+	</properties>
+	<environments default="emp">
+		<environment id="emp">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver"	value="${driver}" />
+				<property name="url"	value="${url}" />
+				<property name="username" value="${user}" />
+				<property name="password" value="${pw}" />
+			</dataSource>
+		</environment>
+	</environments>
+	<mappers>
+		<mapper resource="/mappers/emp/emp-mapper.xml" />
+	</mappers>
+</configuration>
