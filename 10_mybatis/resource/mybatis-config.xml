@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.mybatis.model.vo.Student" alias="student"/>
+		<typeAlias type="com.mybatis.model.vo.Rstudent" alias="Rstudent"/>
+		<typeAlias type="com.mybatis.model.vo.Member" alias="member"/>
+	</typeAliases>
+	
+
+	<environments default="dev">
+		<environment id="dev">
+			<transactionManager type="JDBC"/>
+			<!-- POOLED 는 Connection 만들어놓고 접속할때마다 준다 -->
+			<dataSource type="POOLED">
+				<property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+				<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+				<property name="username" value="student"/>
+				<property name="password" value="student"/>
+			</dataSource>
+		</environment>
+		
+	</environments>
+	<mappers>
+		<mapper resource="/mappers/student/student-mapper.xml"/>
+	</mappers>
+</configuration>
